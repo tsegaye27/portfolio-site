@@ -23,22 +23,20 @@ export const HeroSection = () => {
       </div>
 
       <div className="container flex flex-col items-center relative z-10">
-        {/* Profile Image with Glowing Border */}
         <div className="relative flex flex-col items-center">
           <Image
             src={heroImage}
-            className="size-[130px] md:size-[190px] border border-green-600 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_5px_rgba(34,197,94,0.6)]"
+            className="size-[130px] md:size-[190px] rounded-full border-4 border-transparent bg-gradient-to-r from-emerald-300 via-sky-400 to-emerald-300 bg-clip-border"
             priority
             alt="Tsegaye Talegngeta"
           />
 
-          {/* Social Icons */}
           <div className="flex gap-4 mt-4">
             <Link
               href="https://linkedin.com/in/tsegaye-talegngeta27"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white text-2xl cursor-pointer hover:text-green-500 transition-colors duration-300"
+              className="text-white text-2xl cursor-pointer hover:text-white/80 transition-colors duration-300"
             >
               <FaLinkedin />
             </Link>
@@ -46,20 +44,17 @@ export const HeroSection = () => {
               href="https://github.com/tsegaye27"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white text-2xl cursor-pointer hover:text-green-500 transition-colors duration-300"
+              className="text-white text-2xl cursor-pointer hover:text-white/80 transition-colors duration-300"
             >
               <FaGithub />
             </Link>
           </div>
         </div>
 
-        {/* Availability */}
         <div className="bg-gray-950 border border-gray-800 px-4 py-1.5 flex items-center gap-4 rounded-lg mt-4">
           <div className="bg-green-500 size-2.5 rounded-full"></div>
           <div className="font-medium text-sm">Available for new projects</div>
         </div>
-
-        {/* Name & Title */}
         <div className="max-w-lg mx-auto mt-8 text-center">
           <h1 className="font-serif text-3xl md:text-5xl tracking-wide">
             Tsegaye Talegngeta
@@ -77,15 +72,13 @@ export const HeroSection = () => {
           </p>
         </div>
 
-        {/* Buttons */}
         <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
           <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
             <span className="font-semibold">Explore my work</span>
-            <ArrowDown className="size-4" />
           </button>
-          <button className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 px-6 h-12 rounded-xl">
-            <span>👋</span>
-            <span className="font-semibold">Let's Connect</span>
+          <button className="inline-flex items-center gap-2 border border-white bg-white px-6 h-12 rounded-xl">
+            <ArrowDown className="size-4 text-gray-900" />
+            <span className="font-semibold text-gray-900">Download CV</span>
           </button>
         </div>
       </div>
