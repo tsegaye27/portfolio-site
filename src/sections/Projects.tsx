@@ -1,48 +1,48 @@
-import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
-import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
+import ceramicStore from "@/assets/images/dashboard.png";
+import dotCode from "@/assets/images/Dot-Code.png";
+import Songify from "@/assets/images/Songify.png";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/Card";
 
-const professionalExperience = [
+const projects = [
   {
-    company: "Acme Corp",
-    year: "2022",
-    title: "Dark Saas Landing Page",
+    company: "Personal",
+    year: "May, 2024",
+    title: "Songify",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Built CRUD app for song management with MERN stack" },
+      { title: "Practiced Docker for containerization" },
+      { title: "Designed intuitive UI for song cards" },
     ],
-    link: "https://youtu.be/4k7IdSLxh6w",
-    image: darkSaasLandingPage,
+    link: "https://songiffy.netlify.app",
+    image: Songify,
   },
   {
-    company: "Innovative Co",
-    year: "2021",
-    title: "Light Saas Landing Page",
+    company: "Personal",
+    year: "Oct, 2024",
+    title: "Ceramics Store",
     results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
+      { title: "Developed inventory system with Next.js & Tailwind" },
+      { title: "Integrated Recharts for sales and inventory insights" },
+      { title: "Created for managing ceramics store inventory" },
     ],
-    link: "https://youtu.be/7hi5zwO75yc",
-    image: lightSaasLandingPage,
+    link: "https://ceramics-store.vercel.app",
+    image: ceramicStore,
   },
   {
-    company: "Quantum Dynamics",
-    year: "2023",
-    title: "AI Startup Landing Page",
+    company: "Personal",
+    year: "Jan, 2025",
+    title: "Dot Code",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Built code snippet tool with MERN stack" },
+      { title: "Developed VSCode extension for snippet sharing" },
+      { title: "Enabled group collaboration on code snippets" },
     ],
-    link: "https://youtu.be/Z7I5uSRHMHg",
-    image: aiStartupLandingPage,
+    link: "https://dot-deploy.vercel.app",
+    image: dotCode,
   },
 ];
 
@@ -54,7 +54,7 @@ export const ProjectsSection = () => {
           Personal Projects
         </h2>
         <div className="flex flex-col mt-10 gap-20 md:mt-20">
-          {professionalExperience.map((experience, index) => (
+          {projects.map((project, index) => (
             <Card
               key={index}
               className="px-8 pt-8 md:pt-12 md:px-10 pb-0 lg:pt-16 lg:px-20 sticky"
@@ -65,17 +65,17 @@ export const ProjectsSection = () => {
               <div className="lg:grid lg:grid-cols-2 lg:gap-16">
                 <div className="lg:pb-16">
                   <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-widest text-sm text-transparent bg-clip-text">
-                    <span>{experience.company}</span>
+                    <span>{project.company}</span>
                     <span>&bull;</span>
-                    <span>{experience.year}</span>
+                    <span>{project.year}</span>
                   </div>
                   <div>
                     <h3 className="font-serif text-2xl md:text-4xl mt-2 md:mt-5">
-                      {experience.title}
+                      {project.title}
                     </h3>
                     <hr className="border-t-2 border-white/5 mt-4 md:mt-5" />
                     <ul className="flex flex-col gap-4 mt-4">
-                      {experience.results.map((result, index) => (
+                      {project.results.map((result, index) => (
                         <li
                           key={index}
                           className="flex gap-2 md:text-base text-sm text-white/50"
@@ -85,11 +85,7 @@ export const ProjectsSection = () => {
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href={experience.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <Link href={project.link} target="_blank" rel="noreferrer">
                       <button className="bg-white text-gray-950 h-12 w-full px-6 md:w-auto rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
                         <span>Visit Live Site</span>
                         <ArrowUpRightIcon className="size-4 " />
@@ -100,8 +96,8 @@ export const ProjectsSection = () => {
                 <div className="relative">
                   <Image
                     className="mt-8 -mb-4 lg:absolute lg:h-full lg:w-auto lg:max-w-none lg:mt-0"
-                    src={experience.image}
-                    alt={experience.title}
+                    src={project.image}
+                    alt={project.title}
                   />
                 </div>
               </div>
