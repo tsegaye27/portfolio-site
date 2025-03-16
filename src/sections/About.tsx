@@ -1,126 +1,89 @@
+"use client";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
 import JavaScriptIcon from "@/assets/icons/square-js.svg";
 import HtmlIcon from "@/assets/icons/html5.svg";
 import CssIcon from "@/assets/icons/css3.svg";
 import ReactIcon from "@/assets/icons/react.svg";
-import GithubIcon from "@/assets/icons/github.svg";
-import ChromeIcon from "@/assets/icons/chrome.svg";
+import TypeScriptIcon from "@/assets/icons/typescript.svg";
+import NuxtIcon from "@/assets/icons/nuxt.svg";
+import NextIcon from "@/assets/icons/nextjs.svg";
+import ExpressIcon from "@/assets/icons/express.svg";
+import TailwindIcon from "@/assets/icons/tailwindcss.svg";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolboxItems } from "@/components/ToolboxItems";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 
 export const AboutSection = () => {
+  const constraintRef = useRef(null);
   const toolboxItems = [
-    {
-      title: "JavaScript",
-      iconType: JavaScriptIcon,
-    },
-    {
-      title: "HTML5",
-      iconType: HtmlIcon,
-    },
-    {
-      title: "CSS",
-      iconType: CssIcon,
-    },
-    {
-      title: "React",
-      iconType: ReactIcon,
-    },
-    {
-      title: "Github",
-      iconType: GithubIcon,
-    },
-    {
-      title: "Chrome",
-      iconType: ChromeIcon,
-    },
+    { title: "HTML", iconType: HtmlIcon },
+    { title: "CSS", iconType: CssIcon },
+    { title: "JavaScript", iconType: JavaScriptIcon },
+    { title: "TypeScript", iconType: TypeScriptIcon },
+    { title: "React.js", iconType: ReactIcon },
+    { title: "Next.js", iconType: NextIcon },
+    { title: "Nuxt.js", iconType: NuxtIcon },
+    { title: "Express.js", iconType: ExpressIcon },
+    { title: "Tailwind CSS", iconType: TailwindIcon },
   ];
 
   const hobbies = [
-    {
-      title: "Painting",
-      emoji: "🎨",
-      top: "",
-      left: "",
-    },
-    {
-      title: "Photograhpy",
-      emoji: "📷",
-      top: "",
-      left: "",
-    },
-    {
-      title: "Gaming",
-      emoji: "🎮",
-      top: "",
-      left: "",
-    },
-    {
-      title: "Hiking",
-      emoji: "🧗",
-      top: "",
-      left: "",
-    },
-    {
-      title: "Music",
-      emoji: "🎵",
-      top: "",
-      left: "",
-    },
-    {
-      title: "Fitness",
-      emoji: "🏋",
-      top: "",
-      left: "",
-    },
-    {
-      title: "Reading",
-      emoji: "📚",
-      top: "",
-      left: "",
-    },
+    { title: "Football", emoji: "⚽", top: "5%", left: "5%" },
+    { title: "Movies", emoji: "🎬", top: "5%", left: "50%" },
+    { title: "Anime", emoji: "🌀", top: "35%", left: "10%" },
+    { title: "Chess", emoji: "♟️", top: "35%", left: "40%" },
+    { title: "Reading", emoji: "📚", top: "45%", left: "70%" },
   ];
+
   return (
-    <div className="py-20">
+    <div className="py-16 px-4 md:px-10 lg:px-14">
       <SectionHeader
         eyebrow="About Me"
         title="Glimpse into my world"
-        description="I am a full-stack developer I like for building applications that solve real-world problems. I have experience working with various technologies and frameworks, and I am always eager to learn new things."
+        description="I'm a full-stack developer who enjoys building clean, scalable applications and exploring new technologies."
       />
-      <div className="mt-20 flex flex-col gap-8">
-        <Card className="h-[320px] p-0">
+
+      <div className="mt-12 flex flex-col lg:flex-row lg:justify-center items-center gap-4">
+        <Card className="h-[320px] p-0 w-full md:w-[600px] lg:w-[800px]">
           <CardHeader
             title="My Toolbox"
-            description="Explore the technologies and tools I use to craft exceptional digital experiences."
+            description="Technologies I use to build scalable applications."
             className="px-6 pt-6"
           />
-          <ToolboxItems items={toolboxItems} className="mt-6" />
+          <ToolboxItems
+            items={toolboxItems}
+            className=""
+            itemsWrapperClassName="animate-move-left"
+          />
           <ToolboxItems
             items={toolboxItems}
             className="mt-6"
-            itemsWrapperClassName=" -trasnlate-x-1/2"
+            itemsWrapperClassName="animate-move-right"
           />
         </Card>
-        <Card className="h-[320px] p-0 flex flex-col">
+        <Card className="h-[320px] p-0 flex flex-col w-full md:w-[400px] lg:w-[500px]">
           <CardHeader
             title="While I'm not coding"
-            description="My interests beyound the digital realm"
+            description="Things I enjoy outside coding."
             className="px-6 py-6"
           />
-          <div className="relative flex-1">
+          <div className="relative flex-1" ref={constraintRef}>
             {hobbies.map((hobby) => (
-              <div
+              <motion.div
                 key={hobby.title}
-                className="inline-flex gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
+                className="inline-flex items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
                 style={{
                   left: hobby.left,
                   top: hobby.top,
                 }}
+                drag
+                dragConstraints={constraintRef}
               >
                 <span className="font-medium text-gray-950">{hobby.title}</span>
                 <span>{hobby.emoji}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </Card>
