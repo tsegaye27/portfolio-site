@@ -68,9 +68,8 @@ export const HeroSection = () => {
             Addis Ababa, Ethiopia
           </span>
           <p className="mt-4 text-white/60">
-            I specialize in building high-performance web applications. I focus
-            on turning designs into functional, scalable, and efficient digital
-            solutions.
+            I&apos;m 23 years old, I like building fast and efficient web apps.
+            I bring designs to life with scalable solutions.
           </p>
         </div>
 

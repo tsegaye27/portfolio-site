@@ -30,8 +30,8 @@ export const AboutSection = () => {
   ];
 
   const hobbies = [
-    { title: "Football", emoji: "⚽", top: "5%", left: "5%" },
-    { title: "Movies", emoji: "🎬", top: "5%", left: "50%" },
+    { title: "Football", emoji: "⚽", top: "45%", left: "5%" },
+    { title: "Movies", emoji: "🎬", top: "40%", left: "50%" },
     { title: "Anime", emoji: "🌀", top: "35%", left: "10%" },
     { title: "Chess", emoji: "♟️", top: "35%", left: "40%" },
     { title: "Reading", emoji: "📚", top: "45%", left: "70%" },
