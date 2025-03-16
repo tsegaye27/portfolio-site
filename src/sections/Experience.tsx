@@ -28,7 +28,7 @@ const professionalExperience = [
       { title: "Used HTML, CSS, JS for responsive design" },
       { title: "Secured project through word-of-mouth referral" },
     ],
-    link: "https://lifelinehealthinitiative.org",
+    link: "https://lifelinehealthinitiatives.org",
     image: LifelineHealthInitiative,
   },
 ];

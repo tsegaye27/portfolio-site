@@ -41,7 +41,7 @@ const projects = [
       { title: "Developed VSCode extension for snippet sharing" },
       { title: "Enabled group collaboration on code snippets" },
     ],
-    link: "https://dot-deploy.vercel.app",
+    link: "https://dot-deploy-front-end1.vercel.app",
     image: dotCode,
   },
 ];
