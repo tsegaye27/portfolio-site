@@ -10,18 +10,6 @@ import { Card } from "@/components/Card";
 const projects = [
   {
     company: "Personal",
-    year: "Jan, 2025",
-    title: "Dot Code",
-    results: [
-      { title: "Built code snippet tool with MERN stack" },
-      { title: "Developed VSCode extension for snippet sharing" },
-      { title: "Enabled group collaboration on code snippets" },
-    ],
-    link: "https://dot-deploy-front-end1.vercel.app",
-    image: dotCode,
-  },
-  {
-    company: "Personal",
     year: "Oct, 2024",
     title: "Ceramics Store",
     results: [
@@ -32,6 +20,20 @@ const projects = [
     link: "https://ceramics-store.vercel.app",
     image: ceramicStore,
   },
+
+  {
+    company: "Team Project",
+    year: "Jan, 2025",
+    title: "Dot Code",
+    results: [
+      { title: "Code snippet manager tool with MERN stack" },
+      { title: "Contributed to versioning of code inside the editor" },
+      { title: "Enabled group collaboration on code snippets" },
+    ],
+    link: "https://dot-deploy-front-end1.vercel.app",
+    image: dotCode,
+  },
+
   {
     company: "Personal",
     year: "May, 2024",
