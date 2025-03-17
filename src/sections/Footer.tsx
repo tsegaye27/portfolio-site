@@ -36,13 +36,16 @@ export const Footer = () => {
       <div className="container">
         <div className="border-t border-white/15 py-6 text-sm flex justify-between items-center gap-8">
           <div className="text-white/40">&copy; 2025, All rights reserved.</div>
-          <nav className="flex items-center gap-4 md:gap-8">
+          <nav
+            className="flex items-center gap-4 md:gap-8"
+            aria-label="Footer links"
+          >
             {footerLinks.map((link) => (
               <Link
                 key={link.title}
                 href={link.link}
                 target="_blank"
-                rel="noreferrer noopener"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5"
               >
                 {link.icon}
