@@ -10,15 +10,15 @@ import { Card } from "@/components/Card";
 const projects = [
   {
     company: "Personal",
-    year: "May, 2024",
-    title: "Songify",
+    year: "Jan, 2025",
+    title: "Dot Code",
     results: [
-      { title: "Built CRUD app for song management with MERN stack" },
-      { title: "Practiced Docker for containerization" },
-      { title: "Designed intuitive UI for song cards" },
+      { title: "Built code snippet tool with MERN stack" },
+      { title: "Developed VSCode extension for snippet sharing" },
+      { title: "Enabled group collaboration on code snippets" },
     ],
-    link: "https://songiffy.netlify.app",
-    image: Songify,
+    link: "https://dot-deploy-front-end1.vercel.app",
+    image: dotCode,
   },
   {
     company: "Personal",
@@ -34,15 +34,15 @@ const projects = [
   },
   {
     company: "Personal",
-    year: "Jan, 2025",
-    title: "Dot Code",
+    year: "May, 2024",
+    title: "Songify",
     results: [
-      { title: "Built code snippet tool with MERN stack" },
-      { title: "Developed VSCode extension for snippet sharing" },
-      { title: "Enabled group collaboration on code snippets" },
+      { title: "Built CRUD app for song management with MERN stack" },
+      { title: "Practiced Docker for containerization" },
+      { title: "Designed intuitive UI for song cards" },
     ],
-    link: "https://dot-deploy-front-end1.vercel.app",
-    image: dotCode,
+    link: "https://songiffy.netlify.app",
+    image: Songify,
   },
 ];
 
@@ -85,7 +85,12 @@ export const ProjectsSection = () => {
                         </li>
                       ))}
                     </ul>
-                    <Link href={project.link} target="_blank" rel="noreferrer">
+
+                    <Link
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer noopener nofollow"
+                    >
                       <button className="bg-white text-gray-950 h-12 w-full px-6 md:w-auto rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
                         <span>Visit Live Site</span>
                         <ArrowUpRightIcon className="size-4 " />
@@ -97,7 +102,8 @@ export const ProjectsSection = () => {
                   <Image
                     className="mt-8 -mb-4 lg:absolute lg:h-full lg:w-auto lg:max-w-none lg:mt-0"
                     src={project.image}
-                    alt={project.title}
+                    alt={`Screenshot of ${project.title} project`}
+                    priority={index === 0}
                   />
                 </div>
               </div>
