@@ -16,7 +16,7 @@ const professionalExperience = [
       { title: "Added user roles, post creation, and admin approval" },
       { title: "Enabled search, filters, and user interactions" },
     ],
-    link: "https://github.com/tsegaye27/Afalagi.com",
+    link: "https://github.com/tsegaye27/Afalagi.git",
     image: ReuniteUs,
   },
   {
@@ -43,9 +43,9 @@ export const ExperienceSection = () => {
               Real-world Results
             </p>
           </div>
-          <h2 className="font-serif text-3xl text-center mt-6 md:text-5xl">
+          <h1 className="font-serif text-3xl text-center mt-6 md:text-5xl">
             Professional Experience
-          </h2>
+          </h1>
           <p className="text-center text-white/60 mt-4 md:text-lg lg:text-xl max-w-md mx-auto">
             I have worked on internship based roles and freelance projects,
             contributing to real-world applications
@@ -85,7 +85,7 @@ export const ExperienceSection = () => {
                       <Link
                         href={experience.link}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noreferrer noopener nofollow"
                       >
                         <button className="bg-white text-gray-950 h-12 w-full px-6 md:w-auto rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
                           <span>Visit Live Site</span>
@@ -96,9 +96,12 @@ export const ExperienceSection = () => {
                   </div>
                   <div className="relative">
                     <Image
-                      className="mt-8 -mb-4 lg:absolute lg:h-full lg:w-auto lg:max-w-none lg:mt-0"
+                      className="mt-8 -mb-4 lg:absolute lg:h-full lg:object-contain lg:w-auto lg:max-w-none lg:mt-0"
                       src={experience.image}
-                      alt={experience.title}
+                      alt={`Screenshot of ${experience.title} project`}
+                      width={800}
+                      height={450}
+                      priority={index === 0}
                     />
                   </div>
                 </div>
