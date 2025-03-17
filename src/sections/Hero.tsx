@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import heroImage from "../assets/images/profile.png";
@@ -5,6 +6,12 @@ import ArrowDown from "../assets/icons/arrow-down.svg";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export const HeroSection = () => {
+  const handleScroll = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
   return (
     <div className="py-28 md:py-40 lg:py-50 relative z-0 overflow-x-clip">
       <div
@@ -27,12 +34,12 @@ export const HeroSection = () => {
           <Image
             src={heroImage}
             className="size-[130px] md:size-[190px] rounded-full border-4 border-transparent bg-gradient-to-r from-emerald-300 via-sky-400 to-emerald-300 bg-clip-border"
-            priority
             alt="Tsegaye Talegngeta"
           />
 
           <div className="flex gap-4 mt-4">
             <Link
+              aria-label="LinkedIn"
               href="https://linkedin.com/in/tsegaye-talegngeta27"
               target="_blank"
               rel="noopener noreferrer"
@@ -41,6 +48,7 @@ export const HeroSection = () => {
               <FaLinkedin />
             </Link>
             <Link
+              aria-label="GitHub"
               href="https://github.com/tsegaye27"
               target="_blank"
               rel="noopener noreferrer"
@@ -74,13 +82,23 @@ export const HeroSection = () => {
         </div>
 
         <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
-          <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
-            <span className="font-semibold">Explore my work</span>
-          </button>
-          <button className="inline-flex items-center gap-2 border border-white bg-white px-6 h-12 rounded-xl">
-            <ArrowDown className="size-4 text-gray-900" />
-            <span className="font-semibold text-gray-900">Download CV</span>
-          </button>
+          <Link
+            href="#experience"
+            onClick={(e) => {
+              e.preventDefault();
+              handleScroll("experience");
+            }}
+          >
+            <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
+              <span className="font-semibold">Explore my work</span>
+            </button>
+          </Link>
+          <Link href="/Tsegaye_Talegngeta_CV.pdf" target="_blank">
+            <button className="inline-flex items-center gap-2 border border-white bg-white px-6 h-12 rounded-xl">
+              <ArrowDown className="size-4 text-gray-900" />
+              <span className="font-semibold text-gray-900">Download CV</span>
+            </button>
+          </Link>
         </div>
       </div>
     </div>
