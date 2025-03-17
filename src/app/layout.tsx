@@ -11,9 +11,35 @@ const calistoga = Calistoga({
 });
 
 export const metadata: Metadata = {
-  title: "Tsegaye Talegngeta",
+  title: "Tsegaye Talegngeta | Full-Stack Developer",
   description:
-    "Portfolio website for Tsegaye Talegngeta, Software Engineer and Full Stack Developer",
+    "Tsegaye Talegngeta - A full-stack developer specializing in React, Next.js, and Node.js.",
+  metadataBase: new URL("https://tsegaye-talegngeta.vercel.app"),
+
+  openGraph: {
+    type: "website",
+    url: "https://tsegaye-talegngeta.vercel.app",
+    title: "Tsegaye Talegngeta | Full-Stack Developer",
+    description:
+      "Tsegaye Talegngeta - A full-stack developer specializing in React, Next.js, and Node.js.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Tsegaye Talegngeta | Full-Stack Developer",
+      },
+    ],
+    siteName: "Tsegaye Talegngeta",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Tsegaye Talegngeta | Full-Stack Developer",
+    description:
+      "Tsegaye Talegngeta - A full-stack developer specializing in React, Next.js, and Node.js.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
