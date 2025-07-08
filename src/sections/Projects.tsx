@@ -43,7 +43,7 @@ const projects = [
       { title: "Practiced Docker for containerization" },
       { title: "Designed intuitive UI for song cards" },
     ],
-    link: "https://songiffy.netlify.app",
+    link: "https://songify-nine.vercel.app",
     image: Songify,
   },
 ];
