@@ -1,12 +1,14 @@
 # Tsegaye Talegngeta  
 
-My name is **Tsegaye**. I'm a full-stack developer. I build web applications using:  
+My name is **Tsegaye**. I'm a full-stack developer. I like to build with:  
 
 - React  
 - Next.js  
-- Nuxt.js  
+- Nest
+- Golang  
 - Express.js (Node.js)  
-- MongoDB (Mongoose)  
+- MongoDB (Mongoose)
+- MySQL
 
 You can check my live portfolio here: [tsegaye-talegngeta.vercel.app](https://tsegaye-talegngeta.vercel.app)  
 
