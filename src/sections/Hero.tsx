@@ -23,17 +23,17 @@ export const HeroSection = () => {
             "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)",
         }}
       >
-        <div className="size-[620px] hero-ring"></div>
-        <div className="size-[820px] hero-ring"></div>
-        <div className="size-[1020px] hero-ring"></div>
-        <div className="size-[1220px] hero-ring"></div>
+        <div className="size-155 hero-ring"></div>
+        <div className="size-205 hero-ring"></div>
+        <div className="size-255 hero-ring"></div>
+        <div className="size-305 hero-ring"></div>
       </div>
 
       <div className="container flex flex-col items-center relative z-10">
         <div className="relative flex flex-col items-center">
           <Image
             src={heroImage}
-            className="size-[130px] md:size-[190px] rounded-full border-4 border-transparent bg-gradient-to-r from-emerald-300 via-sky-400 to-emerald-300 bg-clip-border"
+            className="size-32.5 md:size-47.5 rounded-full border-4 border-transparent bg-linear-to-r from-emerald-300 via-sky-400 to-emerald-300 bg-clip-border"
             alt="Tsegaye Talegngeta"
           />
 

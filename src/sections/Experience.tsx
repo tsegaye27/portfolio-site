@@ -41,7 +41,10 @@ const professionalExperience = [
     results: [
       { title: "Built missing person platform with Nuxt.js & Tailwind" },
       { title: "Added user roles, post creation, and admin approval" },
-      { title: "Enabled search, filters, and user interactions; integrated NestJS backend" },
+      {
+        title:
+          "Enabled search, filters, and user interactions; integrated NestJS backend",
+      },
     ],
     link: "https://github.com/tsegaye27/Afalagi.git",
     image: ReuniteUs,
@@ -51,9 +54,18 @@ const professionalExperience = [
     year: "2024–2025",
     title: "Discord Onboarding Bot",
     results: [
-      { title: "Bot for intern onboarding: intros, daily tasks, submission tracking, feedback" },
-      { title: "RAG knowledge base from Notion; text embeddings and ChromaDB; SQLite for state" },
-      { title: "TypeScript, PM2 for multiple instances, deployed on DigitalOcean" },
+      {
+        title:
+          "Bot for intern onboarding: intros, daily tasks, submission tracking, feedback",
+      },
+      {
+        title:
+          "RAG knowledge base from Notion; text embeddings and ChromaDB; SQLite for state",
+      },
+      {
+        title:
+          "TypeScript, PM2 for multiple instances, deployed on DigitalOcean",
+      },
     ],
     link: "#",
     image: DiscordBotImage,
@@ -75,10 +87,19 @@ const professionalExperience = [
     year: "2024–2025",
     title: "BambooSIM – Sim Cards E‑commerce",
     results: [
-      { title: "Full-stack site to sell sim cards: React frontend, NestJS backend" },
-      { title: "Multi-service setup with Docker; relay service for third-party communication" },
+      {
+        title:
+          "Full-stack site to sell sim cards: React frontend, NestJS backend",
+      },
+      {
+        title:
+          "Multi-service setup with Docker; relay service for third-party communication",
+      },
       { title: "Used Redis, Adminer, Prisma, and PostgreSQL" },
-      { title: "Spent significant time on SEO to improve discoverability and search performance" },
+      {
+        title:
+          "Spent significant time on SEO to improve discoverability and search performance",
+      },
     ],
     link: "https://bamboosim.com/",
     image: BamboosimImage,
@@ -88,10 +109,19 @@ const professionalExperience = [
     year: "July 2025 – Present",
     title: "Backend Developer",
     results: [
-      { title: "Build scalable backend services with Golang in a microservices architecture" },
+      {
+        title:
+          "Build scalable backend services with Golang in a microservices architecture",
+      },
       { title: "Implement gRPC and async messaging (RabbitMQ, Apache Pulsar)" },
-      { title: "Integrate gateway with banks (CBE, Awash, Abyssinia) and wallets (Telebirr, M-Pesa, Kacha, Yaya, Coop Bank / Cybersource)" },
-      { title: "Develop services on top of the gateway: event payments, school payment solutions" },
+      {
+        title:
+          "Integrate gateway with banks (CBE, Awash, Abyssinia) and wallets (Telebirr, M-Pesa, Kacha, Yaya, Coop Bank / Cybersource)",
+      },
+      {
+        title:
+          "Develop services on top of the gateway: event payments, school payment solutions",
+      },
       { title: "Work with PostgreSQL, MySQL, and MongoDB in production" },
     ],
     link: "https://addispay.et/",
@@ -105,7 +135,7 @@ export const ExperienceSection = () => {
       <div className="container">
         <section id="experience">
           <div className="flex justify-center">
-            <p className="uppercase font-semibold tracking-widest bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent text-center">
+            <p className="uppercase font-semibold tracking-widest bg-linear-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent text-center">
               Real-world Results
             </p>
           </div>
@@ -113,8 +143,9 @@ export const ExperienceSection = () => {
             Professional Experience
           </h1>
           <p className="text-center text-white/60 mt-4 md:text-lg lg:text-xl max-w-2xl mx-auto">
-            Backend developer at a payment gateway (Golang, microservices), with prior
-            internship and freelance work across full-stack, integrations, and client projects
+            Backend developer at a payment gateway (Golang, microservices), with
+            prior internship and freelance work across full-stack, integrations,
+            and client projects
           </p>
           <div className="flex flex-col mt-10 gap-20 md:mt-20">
             {professionalExperience.map((experience, index) => (
@@ -127,7 +158,7 @@ export const ExperienceSection = () => {
               >
                 <div className="lg:grid lg:grid-cols-2 lg:gap-16">
                   <div className="lg:pb-16">
-                    <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-widest text-sm text-transparent bg-clip-text">
+                    <div className="bg-linear-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-widest text-sm text-transparent bg-clip-text">
                       <span>{experience.company}</span>
                       <span>&bull;</span>
                       <span>{experience.year}</span>
@@ -150,7 +181,9 @@ export const ExperienceSection = () => {
                       </ul>
                       {experience.link &&
                         experience.link !== "#" &&
-                        !/github\.com|gitlab\.com|bitbucket\.org/i.test(experience.link) && (
+                        !/github\.com|gitlab\.com|bitbucket\.org/i.test(
+                          experience.link,
+                        ) && (
                           <Link
                             href={experience.link}
                             target="_blank"

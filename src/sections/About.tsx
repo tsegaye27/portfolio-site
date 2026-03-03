@@ -6,8 +6,8 @@ import HtmlIcon from "@/assets/icons/html5.svg";
 import CssIcon from "@/assets/icons/css3.svg";
 import ReactIcon from "@/assets/icons/react.svg";
 import TypeScriptIcon from "@/assets/icons/typescript.svg";
-import GoIcon from "@/assets/icons/golang.svg"
-import NestIcon from "@/assets/icons/nestjs.svg"
+import GoIcon from "@/assets/icons/golang.svg";
+import NestIcon from "@/assets/icons/nestjs.svg";
 import NuxtIcon from "@/assets/icons/nuxt.svg";
 import NextIcon from "@/assets/icons/nextjs.svg";
 import ExpressIcon from "@/assets/icons/express.svg";
@@ -50,7 +50,7 @@ export const AboutSection = () => {
       />
 
       <div className="mt-12 flex flex-col lg:flex-row lg:justify-center items-center gap-4">
-        <Card className="h-[320px] p-0 w-full md:w-[600px] lg:w-[800px]">
+        <Card className="h-80 p-0 w-full md:w-150 lg:w-200">
           <CardHeader
             title="My Toolbox"
             description="Technologies I use to build scalable applications."
@@ -67,7 +67,7 @@ export const AboutSection = () => {
             itemsWrapperClassName="animate-move-right"
           />
         </Card>
-        <Card className="h-[320px] p-0 flex flex-col w-full md:w-[400px] lg:w-[500px]">
+        <Card className="h-80 p-0 flex flex-col w-full md:w-100 lg:w-125">
           <CardHeader
             title="While I'm not coding"
             description="Things I enjoy outside coding."
@@ -77,7 +77,7 @@ export const AboutSection = () => {
             {hobbies.map((hobby) => (
               <motion.div
                 key={hobby.title}
-                className="inline-flex items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
+                className="inline-flex items-center gap-2 px-6 bg-linear-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
                 style={{
                   left: hobby.left,
                   top: hobby.top,
