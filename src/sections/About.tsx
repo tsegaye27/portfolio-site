@@ -6,6 +6,8 @@ import HtmlIcon from "@/assets/icons/html5.svg";
 import CssIcon from "@/assets/icons/css3.svg";
 import ReactIcon from "@/assets/icons/react.svg";
 import TypeScriptIcon from "@/assets/icons/typescript.svg";
+import GoIcon from "@/assets/icons/golang.svg"
+import NestIcon from "@/assets/icons/nestjs.svg"
 import NuxtIcon from "@/assets/icons/nuxt.svg";
 import NextIcon from "@/assets/icons/nextjs.svg";
 import ExpressIcon from "@/assets/icons/express.svg";
@@ -22,6 +24,8 @@ export const AboutSection = () => {
     { title: "CSS", iconType: CssIcon },
     { title: "JavaScript", iconType: JavaScriptIcon },
     { title: "TypeScript", iconType: TypeScriptIcon },
+    { title: "Go", iconType: GoIcon },
+    { title: "Nest", iconType: NestIcon },
     { title: "React.js", iconType: ReactIcon },
     { title: "Next.js", iconType: NextIcon },
     { title: "Nuxt.js", iconType: NuxtIcon },

@@ -1,5 +1,10 @@
 import ReuniteUs from "@/assets/images/Afalagi.png";
 import LifelineHealthInitiative from "@/assets/images/Lifeline-Health-Initiative.png";
+import AddispayImage from "@/assets/images/addispay.png";
+import BamboosimImage from "@/assets/images/bamboosim.png";
+import DiscordBotImage from "@/assets/images/discord-bot.png";
+import LogisticsSystemImage from "@/assets/images/logistics-system.png";
+import ReactFlowImage from "@/assets/images/react-flow.jpg";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import Link from "next/link";
@@ -8,16 +13,50 @@ import { Card } from "@/components/Card";
 
 const professionalExperience = [
   {
+    company: "Client Project",
+    year: "2025",
+    title: "Logistics & Shipment Tracking System",
+    results: [
+      { title: "System to manage and track shipment status for a client" },
+      { title: "Next.js frontend, NestJS backend, MongoDB database" },
+    ],
+    link: "#",
+    image: LogisticsSystemImage,
+  },
+  {
+    company: "Upwork",
+    year: "2024–2025",
+    title: "Full-Stack React Flow Application",
+    results: [
+      { title: "React Flow–based UI with Node.js / Express backend" },
+      { title: "Designed for clean architecture and maintainable code" },
+    ],
+    link: "#",
+    image: ReactFlowImage,
+  },
+  {
     company: "Ewenet Communication PLC",
-    year: "May, 2024",
-    title: "Reunite Us",
+    year: "May 2024 – Oct 2024",
+    title: "Reunite Us (Frontend Internship)",
     results: [
       { title: "Built missing person platform with Nuxt.js & Tailwind" },
       { title: "Added user roles, post creation, and admin approval" },
-      { title: "Enabled search, filters, and user interactions" },
+      { title: "Enabled search, filters, and user interactions; integrated NestJS backend" },
     ],
     link: "https://github.com/tsegaye27/Afalagi.git",
     image: ReuniteUs,
+  },
+  {
+    company: "Upwork",
+    year: "2024–2025",
+    title: "Discord Onboarding Bot",
+    results: [
+      { title: "Bot for intern onboarding: intros, daily tasks, submission tracking, feedback" },
+      { title: "RAG knowledge base from Notion; text embeddings and ChromaDB; SQLite for state" },
+      { title: "TypeScript, PM2 for multiple instances, deployed on DigitalOcean" },
+    ],
+    link: "#",
+    image: DiscordBotImage,
   },
   {
     company: "Freelance",
@@ -30,6 +69,33 @@ const professionalExperience = [
     ],
     link: "https://lifelinehealthinitiatives.org",
     image: LifelineHealthInitiative,
+  },
+  {
+    company: "Upwork",
+    year: "2024–2025",
+    title: "BambooSIM – Sim Cards E‑commerce",
+    results: [
+      { title: "Full-stack site to sell sim cards: React frontend, NestJS backend" },
+      { title: "Multi-service setup with Docker; relay service for third-party communication" },
+      { title: "Used Redis, Adminer, Prisma, and PostgreSQL" },
+      { title: "Spent significant time on SEO to improve discoverability and search performance" },
+    ],
+    link: "https://bamboosim.com/",
+    image: BamboosimImage,
+  },
+  {
+    company: "AddisPay",
+    year: "July 2025 – Present",
+    title: "Backend Developer",
+    results: [
+      { title: "Build scalable backend services with Golang in a microservices architecture" },
+      { title: "Implement gRPC and async messaging (RabbitMQ, Apache Pulsar)" },
+      { title: "Integrate gateway with banks (CBE, Awash, Abyssinia) and wallets (Telebirr, M-Pesa, Kacha, Yaya, Coop Bank / Cybersource)" },
+      { title: "Develop services on top of the gateway: event payments, school payment solutions" },
+      { title: "Work with PostgreSQL, MySQL, and MongoDB in production" },
+    ],
+    link: "https://addispay.et/",
+    image: AddispayImage,
   },
 ];
 
@@ -46,9 +112,9 @@ export const ExperienceSection = () => {
           <h1 className="font-serif text-3xl text-center mt-6 md:text-5xl">
             Professional Experience
           </h1>
-          <p className="text-center text-white/60 mt-4 md:text-lg lg:text-xl max-w-md mx-auto">
-            I have worked on internship based roles and freelance projects,
-            contributing to real-world applications
+          <p className="text-center text-white/60 mt-4 md:text-lg lg:text-xl max-w-2xl mx-auto">
+            Backend developer at a payment gateway (Golang, microservices), with prior
+            internship and freelance work across full-stack, integrations, and client projects
           </p>
           <div className="flex flex-col mt-10 gap-20 md:mt-20">
             {professionalExperience.map((experience, index) => (
@@ -82,16 +148,20 @@ export const ExperienceSection = () => {
                           </li>
                         ))}
                       </ul>
-                      <Link
-                        href={experience.link}
-                        target="_blank"
-                        rel="noreferrer noopener nofollow"
-                      >
-                        <button className="bg-white text-gray-950 h-12 w-full px-6 md:w-auto rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
-                          <span>Visit Live Site</span>
-                          <ArrowUpRightIcon className="size-4 " />
-                        </button>
-                      </Link>
+                      {experience.link &&
+                        experience.link !== "#" &&
+                        !/github\.com|gitlab\.com|bitbucket\.org/i.test(experience.link) && (
+                          <Link
+                            href={experience.link}
+                            target="_blank"
+                            rel="noreferrer noopener nofollow"
+                          >
+                            <button className="bg-white text-gray-950 h-12 w-full px-6 md:w-auto rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
+                              <span>Visit Live Site</span>
+                              <ArrowUpRightIcon className="size-4 " />
+                            </button>
+                          </Link>
+                        )}
                     </div>
                   </div>
                   <div className="relative">
