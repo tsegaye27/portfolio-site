@@ -1,10 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { useRef } from "react";
 
-import portrait from "@/assets/images/profile.png";
 import { LocalTime } from "@/components/LocalTime";
 import { Magnetic } from "@/components/Magnetic";
 import { Reveal } from "@/components/Reveal";
@@ -19,10 +17,10 @@ export const Hero = () => {
     target: ref,
     offset: ["start start", "end start"],
   });
-  // The headline drifts up and dims as you leave; the portrait lags behind it.
+  // The headline drifts up and dims as you leave; the side panel lags behind it.
   const copyY = useTransform(scrollYProgress, [0, 1], ["0%", "-22%"]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const panelY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
 
   const parallax = reduced ? {} : { y: copyY, opacity: copyOpacity };
 
@@ -118,43 +116,32 @@ export const Hero = () => {
             <div className="lg:col-span-4">
               <Reveal delay={0.25} distance={40}>
                 <motion.div
-                  style={reduced ? {} : { y: portraitY }}
-                  className="relative"
+                  style={reduced ? {} : { y: panelY }}
+                  className="rule lg:border-l lg:pl-8"
                 >
-                  <div className="border-bone-50/10 relative aspect-4/5 overflow-hidden rounded-2xl border">
-                    <Image
-                      src={portrait}
-                      alt={profile.name}
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 24rem, 100vw"
-                      className="object-cover object-top grayscale transition-[filter,transform] duration-[1.2s] ease-out hover:scale-[1.03] hover:grayscale-0"
-                    />
-                    <div
-                      aria-hidden
-                      className="from-ink-950 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
-                    />
-                  </div>
+                  <p className="font-display text-3xl leading-tight md:text-4xl">
+                    {profile.role}
+                    <span className="text-bone-600 block">/</span>
+                    <span className="text-bone-400 italic">
+                      {profile.secondaryRole}
+                    </span>
+                  </p>
 
-                  <div className="mt-5 space-y-3">
-                    <p className="font-display text-2xl">
-                      {profile.role}
-                      <span className="text-bone-600 mx-2">/</span>
-                      <span className="text-bone-400 italic">
-                        {profile.secondaryRole}
-                      </span>
-                    </p>
-                    <dl className="grid grid-cols-2 gap-x-4 gap-y-2">
-                      {facts.map((fact) => (
-                        <div key={fact.label}>
-                          <dt className="label">{fact.label}</dt>
-                          <dd className="text-bone-200 mt-0.5 text-sm">
-                            {fact.value}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
+                  {/* Spec-sheet rows — the panel carries the column now that
+                      there is no portrait to anchor it. */}
+                  <dl className="mt-8">
+                    {facts.map((fact) => (
+                      <div
+                        key={fact.label}
+                        className="rule flex items-baseline justify-between gap-4 border-t py-3"
+                      >
+                        <dt className="label">{fact.label}</dt>
+                        <dd className="text-bone-200 text-right text-sm">
+                          {fact.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
                 </motion.div>
               </Reveal>
             </div>
