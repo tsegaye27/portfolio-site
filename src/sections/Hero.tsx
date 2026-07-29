@@ -32,7 +32,7 @@ export const Hero = () => {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(60rem 40rem at 72% 18%, rgba(240,178,63,0.10), transparent 60%)",
+            "radial-gradient(60rem 40rem at 72% 18%, var(--glow), transparent 60%)",
         }}
       />
       <div
@@ -40,7 +40,7 @@ export const Hero = () => {
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.35]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(246,244,239,0.045) 1px, transparent 1px)",
+            "linear-gradient(to right, var(--grid-line) 1px, transparent 1px)",
           backgroundSize: "25% 100%",
         }}
       />
@@ -49,15 +49,15 @@ export const Hero = () => {
         <motion.div style={parallax}>
           {/* ── meta strip ─────────────────────────────────────────────── */}
           <Reveal className="rule flex flex-wrap items-center gap-x-6 gap-y-2 border-b pb-4">
-            <span className="label text-bone-400">{profile.location}</span>
-            <span className="label text-bone-400">
+            <span className="label text-body">{profile.location}</span>
+            <span className="label text-body">
               <LocalTime />
             </span>
             {profile.available && (
-              <span className="label text-flare inline-flex items-center gap-2">
+              <span className="label text-accent inline-flex items-center gap-2">
                 <span className="relative flex size-1.5">
-                  <span className="bg-flare animate-pulse-ring absolute inset-0 rounded-full" />
-                  <span className="bg-flare relative inline-flex size-1.5 rounded-full" />
+                  <span className="bg-accent animate-pulse-ring absolute inset-0 rounded-full" />
+                  <span className="bg-accent relative inline-flex size-1.5 rounded-full" />
                 </span>
                 Available for work
               </span>
@@ -76,12 +76,12 @@ export const Hero = () => {
                   text="Talegngeta"
                   immediate
                   delay={0.12}
-                  className="text-bone-400 block italic"
+                  className="text-body block italic"
                 />
               </h1>
 
               <Reveal delay={0.35} className="mt-8 max-w-xl">
-                <p className="text-bone-200 text-lg leading-relaxed md:text-xl">
+                <p className="text-body text-lg leading-relaxed md:text-xl">
                   {profile.intro}
                 </p>
               </Reveal>
@@ -90,7 +90,7 @@ export const Hero = () => {
                 <Magnetic pull={0.25}>
                   <a
                     href="#work"
-                    className="group bg-bone-50 text-ink-950 hover:bg-flare inline-flex h-12 items-center gap-3 rounded-full px-7 text-sm font-semibold transition-colors duration-500"
+                    className="group bg-heading text-on-accent hover:bg-accent inline-flex h-12 items-center gap-3 rounded-full px-7 text-sm font-semibold transition-colors duration-500"
                   >
                     See the work
                     <span className="transition-transform duration-500 group-hover:translate-x-1">
@@ -103,10 +103,10 @@ export const Hero = () => {
                     href={profile.cv}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border-bone-50/20 text-bone-50 hover:border-bone-50/60 inline-flex h-12 items-center gap-3 rounded-full border px-7 text-sm font-semibold transition-colors duration-500"
+                    className="border-line-strong text-heading hover:border-heading inline-flex h-12 items-center gap-3 rounded-full border px-7 text-sm font-semibold transition-colors duration-500"
                   >
                     Download CV
-                    <span className="text-bone-400">↓</span>
+                    <span className="text-body">↓</span>
                   </a>
                 </Magnetic>
               </Reveal>
@@ -121,8 +121,8 @@ export const Hero = () => {
                 >
                   <p className="font-display text-3xl leading-tight md:text-4xl">
                     {profile.role}
-                    <span className="text-bone-600 block">/</span>
-                    <span className="text-bone-400 italic">
+                    <span className="text-muted block">/</span>
+                    <span className="text-body italic">
                       {profile.secondaryRole}
                     </span>
                   </p>
@@ -136,7 +136,7 @@ export const Hero = () => {
                         className="rule flex items-baseline justify-between gap-4 border-t py-3"
                       >
                         <dt className="label">{fact.label}</dt>
-                        <dd className="text-bone-200 text-right text-sm">
+                        <dd className="text-body text-right text-sm">
                           {fact.value}
                         </dd>
                       </div>
@@ -158,7 +158,7 @@ export const Hero = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-sweep text-bone-400 hover:text-bone-50 font-mono text-xs tracking-[0.14em] uppercase transition-colors"
+                className="link-sweep text-body hover:text-heading font-mono text-xs tracking-[0.14em] uppercase transition-colors"
               >
                 {social.label}
               </a>

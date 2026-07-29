@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google";
 
 import { profile } from "@/lib/content";
+import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
 const display = Instrument_Serif({
@@ -26,7 +27,7 @@ const mono = JetBrains_Mono({
 
 const title = `${profile.name} — ${profile.role}`;
 const description =
-  "Backend engineer in Addis Ababa building payment infrastructure in Go, plus full-stack products in TypeScript, Next.js and NestJS.";
+  "Backend developer in Addis Ababa at Pitron Tech Solutions. Payment infrastructure in Go, plus full-stack products in TypeScript, Next.js and NestJS.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
@@ -61,8 +62,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: "dark",
-  themeColor: "#08080a",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf8f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0d" },
+  ],
 };
 
 const personSchema = {
@@ -70,6 +74,7 @@ const personSchema = {
   "@type": "Person",
   name: profile.name,
   jobTitle: profile.role,
+  worksFor: { "@type": "Organization", name: profile.company },
   url: profile.siteUrl,
   email: `mailto:${profile.email}`,
   address: { "@type": "PostalAddress", addressLocality: profile.location },
@@ -85,8 +90,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // suppressHydrationWarning: the boot script below rewrites data-theme
+      // before React hydrates, so the server markup deliberately differs.
+      suppressHydrationWarning
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="antialiased">
         <script
           type="application/ld+json"

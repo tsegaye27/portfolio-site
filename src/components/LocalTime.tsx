@@ -29,7 +29,7 @@ export const LocalTime = () => {
   return (
     <span className="tabular-nums">
       {time ?? "--:--:--"}
-      <span className="text-flare ml-1 animate-blink">·</span>
+      <span className="text-accent ml-1 animate-blink">·</span>
     </span>
   );
 };

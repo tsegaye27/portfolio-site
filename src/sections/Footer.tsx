@@ -10,7 +10,7 @@ export const Footer = () => (
         <span className="label hidden md:inline">
           Next.js · Tailwind · Framer Motion
         </span>
-        <a href="#top" className="label hover:text-bone-50 transition-colors">
+        <a href="#top" className="label hover:text-heading transition-colors">
           Back to top ↑
         </a>
       </div>

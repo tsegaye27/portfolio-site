@@ -23,10 +23,10 @@ export const Marquee = ({ items, reverse = false }: MarqueeProps) => (
         <Fragment key={copy}>
           {items.map((item) => (
             <span key={`${copy}-${item}`} className="flex items-center gap-10">
-              <span className="font-display text-3xl whitespace-nowrap text-bone-200 md:text-5xl">
+              <span className="font-display text-3xl whitespace-nowrap text-body md:text-5xl">
                 {item}
               </span>
-              <span className="text-flare text-xl">✦</span>
+              <span className="text-accent text-xl">✦</span>
             </span>
           ))}
         </Fragment>

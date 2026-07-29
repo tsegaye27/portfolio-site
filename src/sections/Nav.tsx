@@ -3,6 +3,7 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { profile, sections } from "@/lib/content";
 
 export const Nav = () => {
@@ -39,21 +40,22 @@ export const Nav = () => {
       <motion.div
         aria-hidden
         style={{ scaleX: progress }}
-        className="bg-flare h-px origin-left"
+        className="bg-accent h-px origin-left"
       />
 
       <div className="shell flex items-center justify-between py-4 md:py-5">
         <a
           href="#top"
-          className="label text-bone-200 hover:text-bone-50 transition-colors"
+          className="label text-body hover:text-heading transition-colors"
         >
           {profile.name.split(" ")[0]}
-          <span className="text-flare">.</span>
+          <span className="text-accent">.</span>
         </a>
 
+        <div className="flex items-center gap-2 md:gap-3">
         <nav
           aria-label="Sections"
-          className="border-bone-50/10 bg-ink-900/70 flex items-center gap-0.5 rounded-full border p-1 backdrop-blur-xl"
+          className="border-line bg-surface/70 flex items-center gap-0.5 rounded-full border p-1 backdrop-blur-xl"
         >
           {sections.map((section) => {
             const isActive = active === section.id;
@@ -64,14 +66,14 @@ export const Nav = () => {
                 aria-current={isActive ? "true" : undefined}
                 className={`relative rounded-full px-3 py-1.5 font-mono text-[0.6875rem] tracking-[0.14em] uppercase transition-colors md:px-4 ${
                   isActive
-                    ? "text-ink-950"
-                    : "text-bone-400 hover:text-bone-50"
+                    ? "text-on-accent"
+                    : "text-body hover:text-heading"
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="bg-bone-50 absolute inset-0 rounded-full"
+                    className="bg-heading absolute inset-0 rounded-full"
                     transition={{
                       type: "spring",
                       stiffness: 380,
@@ -84,6 +86,8 @@ export const Nav = () => {
             );
           })}
         </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

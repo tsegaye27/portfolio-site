@@ -54,17 +54,19 @@ export const About = () => {
             <Reveal>
               <p className="font-display text-2xl leading-snug text-balance md:text-3xl">
                 I started in the browser and ended up{" "}
-                <span className="text-flare italic">underneath it</span> — in
+                <span className="text-accent italic">underneath it</span> — in
                 the services that decide whether a payment succeeds or fails
                 honestly.
               </p>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="text-bone-400 mt-6 leading-relaxed">
-                Today I write Go at AddisPay, building the microservices behind
-                a payment gateway wired into Ethiopian banks and mobile wallets.
-                Before that: a Nuxt frontend for a missing-person platform, an
+              <p className="text-body mt-6 leading-relaxed">
+                Today I&apos;m a backend developer at Pitron Tech Solutions,
+                working across the company&apos;s projects. Before that I wrote
+                Go at AddisPay, building the microservices behind a payment
+                gateway wired into Ethiopian banks and mobile wallets — and
+                before that: a Nuxt frontend for a missing-person platform, an
                 eSIM storefront on NestJS, a RAG-backed onboarding bot, and a
                 run of freelance builds that taught me how much of engineering
                 is really about drawing clear boundaries.
@@ -76,14 +78,14 @@ export const About = () => {
                 <Reveal key={principle.n} delay={i * 0.08}>
                   <div className="rule group border-t py-6">
                     <div className="flex gap-5">
-                      <span className="label group-hover:text-flare pt-1.5 transition-colors duration-500">
+                      <span className="label group-hover:text-accent pt-1.5 transition-colors duration-500">
                         {principle.n}
                       </span>
                       <div>
                         <h3 className="font-display text-xl md:text-2xl">
                           {principle.title}
                         </h3>
-                        <p className="text-bone-400 mt-2 text-sm leading-relaxed">
+                        <p className="text-body mt-2 text-sm leading-relaxed">
                           {principle.body}
                         </p>
                       </div>
@@ -99,15 +101,15 @@ export const About = () => {
             <div className="lg:sticky lg:top-24">
               <Reveal>
                 <span className="label">Toolbox</span>
-                <ul className="border-bone-50/10 bg-bone-50/10 mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border sm:grid-cols-3 lg:grid-cols-2">
+                <ul className="border-line bg-line mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border sm:grid-cols-3 lg:grid-cols-2">
                   {stack.map((item) => {
                     const Icon = item.icon;
                     return (
                       <li
                         key={item.title}
-                        className="bg-ink-950 hover:bg-ink-900 group flex items-center gap-3 p-4 transition-colors"
+                        className="bg-canvas hover:bg-surface group flex items-center gap-3 p-4 transition-colors"
                       >
-                        <Icon className="tech-svg text-bone-600 group-hover:text-flare size-5 shrink-0 transition-colors duration-500" />
+                        <Icon className="tech-svg text-muted group-hover:text-accent size-5 shrink-0 transition-colors duration-500" />
                         <span className="min-w-0 truncate text-sm font-medium">
                           {item.title}
                         </span>
@@ -121,7 +123,7 @@ export const About = () => {
                 <span className="label">Off the clock — drag them around</span>
                 <div
                   ref={dragArea}
-                  className="border-bone-50/10 bg-ink-900/50 relative mt-5 h-56 overflow-hidden rounded-xl border"
+                  className="border-line bg-surface/50 relative mt-5 h-56 overflow-hidden rounded-xl border"
                 >
                   {hobbies.map((hobby, i) => (
                     <motion.span
@@ -132,7 +134,7 @@ export const About = () => {
                       dragMomentum={false}
                       whileDrag={{ scale: 1.08, zIndex: 10 }}
                       style={chipPositions[i]}
-                      className="border-bone-50/15 bg-ink-800 text-bone-50 absolute inline-flex cursor-grab items-center gap-2 rounded-full border px-4 py-2 text-sm select-none active:cursor-grabbing"
+                      className="border-line bg-surface-2 text-heading absolute inline-flex cursor-grab items-center gap-2 rounded-full border px-4 py-2 text-sm select-none active:cursor-grabbing"
                     >
                       {hobby.title}
                       <span aria-hidden>{hobby.emoji}</span>

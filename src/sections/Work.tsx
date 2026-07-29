@@ -47,11 +47,16 @@ export const Work = () => {
   };
 
   // An expanded row already shows its screenshot — a second floating copy
-  // would just sit on top of the detail you are trying to read.
-  const preview =
+  // would just sit on top of the detail you are trying to read. Entries
+  // without a screenshot simply have nothing to preview.
+  const hoveredEntry =
     hovered && hovered !== expanded
       ? work.find((entry) => entry.id === hovered)
       : null;
+  // Rebuilt as its own object so `image` narrows to non-optional.
+  const preview = hoveredEntry?.image
+    ? { id: hoveredEntry.id, image: hoveredEntry.image }
+    : null;
 
   return (
     <div className="py-24 md:py-32">
@@ -79,13 +84,13 @@ export const Work = () => {
                 onClick={() => setFilter(option.id)}
                 aria-pressed={isActive}
                 className={`relative rounded-full px-4 py-2 font-mono text-[0.6875rem] tracking-[0.14em] uppercase transition-colors ${
-                  isActive ? "text-ink-950" : "text-bone-400 hover:text-bone-50"
+                  isActive ? "text-on-accent" : "text-body hover:text-heading"
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="work-filter-pill"
-                    className="bg-flare absolute inset-0 rounded-full"
+                    className="bg-accent absolute inset-0 rounded-full"
                     transition={{ type: "spring", stiffness: 400, damping: 34 }}
                   />
                 )}
@@ -125,7 +130,7 @@ export const Work = () => {
                   >
                     <span
                       className={`label shrink-0 transition-colors ${
-                        isOpen ? "text-flare" : ""
+                        isOpen ? "text-accent" : ""
                       }`}
                     >
                       {entry.index}
@@ -134,12 +139,12 @@ export const Work = () => {
                     <span className="min-w-0 flex-1">
                       <span
                         className={`font-display block text-[clamp(1.6rem,4.2vw,3rem)] leading-tight tracking-[-0.02em] transition-[color,transform] duration-500 ${
-                          isDimmed ? "text-bone-600" : "text-bone-50"
+                          isDimmed ? "text-muted" : "text-heading"
                         } ${reduced ? "" : "md:group-hover:translate-x-3"}`}
                       >
                         {entry.title}
                       </span>
-                      <span className="text-bone-400 mt-1 block text-sm">
+                      <span className="text-body mt-1 block text-sm">
                         {entry.org}
                       </span>
                     </span>
@@ -150,7 +155,7 @@ export const Work = () => {
 
                     <span
                       className={`shrink-0 text-xl transition-transform duration-500 ${
-                        isOpen ? "text-flare rotate-45" : "text-bone-600"
+                        isOpen ? "text-accent rotate-45" : "text-muted"
                       }`}
                       aria-hidden
                     >
@@ -170,16 +175,16 @@ export const Work = () => {
                       >
                         <div className="grid gap-8 pb-10 md:grid-cols-12 md:gap-10">
                           <div className="md:col-span-7 md:col-start-2">
-                            <p className="text-bone-200 text-base md:text-lg">
+                            <p className="text-body text-base md:text-lg">
                               {entry.summary}
                             </p>
                             <ul className="mt-5 space-y-2.5">
                               {entry.detail.map((line) => (
                                 <li
                                   key={line}
-                                  className="text-bone-400 flex gap-3 text-sm leading-relaxed"
+                                  className="text-body flex gap-3 text-sm leading-relaxed"
                                 >
-                                  <span className="text-flare mt-[0.35em] shrink-0 text-[0.5rem]">
+                                  <span className="text-accent mt-[0.35em] shrink-0 text-[0.5rem]">
                                     ◆
                                   </span>
                                   {line}
@@ -191,7 +196,7 @@ export const Work = () => {
                               {entry.stack.map((tech) => (
                                 <span
                                   key={tech}
-                                  className="border-bone-50/15 text-bone-400 rounded-full border px-3 py-1 font-mono text-[0.6875rem] tracking-wide"
+                                  className="border-line text-body rounded-full border px-3 py-1 font-mono text-[0.6875rem] tracking-wide"
                                 >
                                   {tech}
                                 </span>
@@ -203,10 +208,10 @@ export const Work = () => {
                                 href={entry.href}
                                 target="_blank"
                                 rel="noopener noreferrer nofollow"
-                                className="link-sweep text-bone-50 mt-6 inline-flex items-center gap-2 text-sm font-semibold"
+                                className="link-sweep text-heading mt-6 inline-flex items-center gap-2 text-sm font-semibold"
                               >
                                 Visit
-                                <span className="text-flare">↗</span>
+                                <span className="text-accent">↗</span>
                               </a>
                             )}
                             <span className="label mt-6 block md:hidden">
@@ -214,17 +219,19 @@ export const Work = () => {
                             </span>
                           </div>
 
-                          <div className="md:col-span-4">
-                            <div className="border-bone-50/10 bg-ink-900 relative aspect-video overflow-hidden rounded-xl border">
-                              <Image
-                                src={entry.image}
-                                alt={`${entry.title} screenshot`}
-                                fill
-                                sizes="(min-width: 768px) 22rem, 100vw"
-                                className="object-cover object-top"
-                              />
+                          {entry.image && (
+                            <div className="md:col-span-4">
+                              <div className="border-line bg-surface relative aspect-video overflow-hidden rounded-xl border">
+                                <Image
+                                  src={entry.image}
+                                  alt={`${entry.title} screenshot`}
+                                  fill
+                                  sizes="(min-width: 768px) 22rem, 100vw"
+                                  className="object-cover object-top"
+                                />
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </motion.div>
                     )}
@@ -255,7 +262,7 @@ export const Work = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.92 }}
                   transition={{ duration: 0.35, ease: easeOutExpo }}
-                  className="border-bone-50/10 relative aspect-video w-72 overflow-hidden rounded-lg border shadow-2xl shadow-black/60"
+                  className="border-line relative aspect-video w-72 overflow-hidden rounded-lg border shadow-[0_24px_60px_var(--shadow-color)]"
                 >
                   <Image
                     src={preview.image}

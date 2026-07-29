@@ -25,7 +25,7 @@ import TypeScriptIcon from "@/assets/icons/typescript.svg";
 
 export const profile = {
   name: "Tsegaye Talegngeta",
-  role: "Backend Engineer",
+  role: "Backend Developer",
   secondaryRole: "Full-Stack Developer",
   location: "Addis Ababa, Ethiopia",
   timezone: "Africa/Addis_Ababa",
@@ -33,8 +33,9 @@ export const profile = {
   email: "ttalegn29@gmail.com",
   cv: "/Tsegaye_Talegngeta_CV.pdf",
   siteUrl: "https://tsegaye-talegngeta.vercel.app",
+  company: "Pitron Tech Solutions",
   intro:
-    "I build payment infrastructure in Go — gateways that move real money between banks and wallets — and ship the full-stack products that sit on top of them.",
+    "Backend developer at Pitron Tech Solutions. Before that I built payment infrastructure in Go — gateways moving real money between banks and wallets — and I still ship the full-stack products that sit on top of systems like it.",
 } as const;
 
 export const socials = [
@@ -61,17 +62,32 @@ export type WorkEntry = {
   detail: string[];
   stack: string[];
   href?: string;
-  image: StaticImageData;
+  image?: StaticImageData;
 };
 
 /** Newest first — the order the index list reads top to bottom. */
 export const work: WorkEntry[] = [
   {
-    id: "addispay",
+    id: "pitrontech",
     index: "01",
+    title: "Backend Developer",
+    org: "Pitron Tech Solutions",
+    // TODO(tsegaye): confirm the start month.
+    period: "2026 — Present",
+    kind: "work",
+    summary:
+      "Backend development across the company's project portfolio.",
+    detail: [
+      "Build and maintain backend services across a range of client and internal projects.",
+    ],
+    stack: ["Go", "TypeScript", "PostgreSQL"],
+  },
+  {
+    id: "addispay",
+    index: "02",
     title: "Payment Gateway Services",
     org: "AddisPay",
-    period: "Jul 2025 — Present",
+    period: "Jul 2025 — 2026",
     kind: "work",
     summary:
       "Go microservices moving money between Ethiopian banks and mobile wallets.",
@@ -88,7 +104,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "bamboosim",
-    index: "02",
+    index: "03",
     title: "BambooSIM",
     org: "Upwork · e‑commerce",
     period: "2024 — 2025",
@@ -106,7 +122,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "discord-bot",
-    index: "03",
+    index: "04",
     title: "Discord Onboarding Bot",
     org: "Upwork · internal tooling",
     period: "2024 — 2025",
@@ -124,7 +140,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "logistics",
-    index: "04",
+    index: "05",
     title: "Logistics & Shipment Tracking",
     org: "Client project",
     period: "2025",
@@ -139,7 +155,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "react-flow",
-    index: "05",
+    index: "06",
     title: "React Flow Application",
     org: "Upwork",
     period: "2024 — 2025",
@@ -154,7 +170,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "afalagi",
-    index: "06",
+    index: "07",
     title: "Reunite Us",
     org: "Ewenet Communication PLC · internship",
     period: "May — Oct 2024",
@@ -171,7 +187,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "lifeline",
-    index: "07",
+    index: "08",
     title: "Lifeline Health Initiatives",
     org: "Freelance",
     period: "2024",
@@ -187,7 +203,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "dot-code",
-    index: "08",
+    index: "09",
     title: "Dot Code",
     org: "Team project",
     period: "Jan 2025",
@@ -204,7 +220,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "ceramics",
-    index: "09",
+    index: "10",
     title: "Ceramics Store",
     org: "Personal",
     period: "Oct 2024",
@@ -220,7 +236,7 @@ export const work: WorkEntry[] = [
   },
   {
     id: "songify",
-    index: "10",
+    index: "11",
     title: "Songify",
     org: "Personal",
     period: "May 2024",
@@ -253,7 +269,7 @@ export const stack = [
 
 export const facts = [
   { label: "Based in", value: "Addis Ababa" },
-  { label: "Currently", value: "AddisPay" },
+  { label: "Currently", value: "Pitron Tech" },
   { label: "Writing", value: "Go · TypeScript" },
   { label: "Open to", value: "Backend roles" },
 ];
