@@ -1,31 +1,41 @@
-import { ExperienceSection } from "@/sections/Experience";
-import { Header } from "@/sections/Header";
-import { HeroSection } from "@/sections/Hero";
-import { TapeSection } from "@/sections/Tape";
+import { Grain } from "@/components/Grain";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { About } from "@/sections/About";
+import { Contact } from "@/sections/Contact";
 import { Footer } from "@/sections/Footer";
-import { ProjectsSection } from "@/sections/Projects";
-import { AboutSection } from "@/sections/About";
-import { ContactSection } from "@/sections/Contact";
+import { Hero } from "@/sections/Hero";
+import { Nav } from "@/sections/Nav";
+import { Ticker } from "@/sections/Ticker";
+import { Work } from "@/sections/Work";
 
 export default function Home() {
   return (
-    <div>
-      <Header />
-      <section id="home">
-        <HeroSection />
-      </section>
-      <section id="experience">
-        <ExperienceSection />
-        <TapeSection />
-      </section>
-      <section id="projects">
-        <ProjectsSection />
-      </section>
-      <section id="about">
-        <AboutSection />
-        <ContactSection />
-        <Footer />
-      </section>
-    </div>
+    <>
+      <SmoothScroll />
+      <Grain />
+      <Nav />
+
+      <main>
+        <section id="top">
+          <Hero />
+        </section>
+
+        <Ticker />
+
+        <section id="work">
+          <Work />
+        </section>
+
+        <section id="about">
+          <About />
+        </section>
+
+        <section id="contact">
+          <Contact />
+        </section>
+      </main>
+
+      <Footer />
+    </>
   );
 }

@@ -1,105 +1,184 @@
 "use client";
+
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import heroImage from "../assets/images/profile.png";
-import ArrowDown from "../assets/icons/arrow-down.svg";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useRef } from "react";
 
-export const HeroSection = () => {
-  const handleScroll = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+import portrait from "@/assets/images/profile.png";
+import { LocalTime } from "@/components/LocalTime";
+import { Magnetic } from "@/components/Magnetic";
+import { Reveal } from "@/components/Reveal";
+import { WordReveal } from "@/components/WordReveal";
+import { facts, profile, socials } from "@/lib/content";
+
+export const Hero = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  // The headline drifts up and dims as you leave; the portrait lags behind it.
+  const copyY = useTransform(scrollYProgress, [0, 1], ["0%", "-22%"]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+
+  const parallax = reduced ? {} : { y: copyY, opacity: copyOpacity };
+
   return (
-    <div className="py-28 md:py-40 lg:py-50 relative z-0 overflow-x-clip">
+    <div ref={ref} className="relative min-h-svh overflow-hidden pt-28 pb-16">
+      {/* A single warm bloom behind the fold, and the page's structural grid. */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          maskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)",
+          background:
+            "radial-gradient(60rem 40rem at 72% 18%, rgba(240,178,63,0.10), transparent 60%)",
         }}
-      >
-        <div className="size-155 hero-ring"></div>
-        <div className="size-205 hero-ring"></div>
-        <div className="size-255 hero-ring"></div>
-        <div className="size-305 hero-ring"></div>
-      </div>
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(246,244,239,0.045) 1px, transparent 1px)",
+          backgroundSize: "25% 100%",
+        }}
+      />
 
-      <div className="container flex flex-col items-center relative z-10">
-        <div className="relative flex flex-col items-center">
-          <Image
-            src={heroImage}
-            className="size-32.5 md:size-47.5 rounded-full border-4 border-transparent bg-linear-to-r from-emerald-300 via-sky-400 to-emerald-300 bg-clip-border"
-            alt="Tsegaye Talegngeta"
-          />
+      <div className="shell">
+        <motion.div style={parallax}>
+          {/* ── meta strip ─────────────────────────────────────────────── */}
+          <Reveal className="rule flex flex-wrap items-center gap-x-6 gap-y-2 border-b pb-4">
+            <span className="label text-bone-400">{profile.location}</span>
+            <span className="label text-bone-400">
+              <LocalTime />
+            </span>
+            {profile.available && (
+              <span className="label text-flare inline-flex items-center gap-2">
+                <span className="relative flex size-1.5">
+                  <span className="bg-flare animate-pulse-ring absolute inset-0 rounded-full" />
+                  <span className="bg-flare relative inline-flex size-1.5 rounded-full" />
+                </span>
+                Available for work
+              </span>
+            )}
+            <span className="label ml-auto hidden md:inline">
+              {new Date().getFullYear()} — Portfolio
+            </span>
+          </Reveal>
 
-          <div className="flex gap-4 mt-4">
-            <Link
-              aria-label="LinkedIn"
-              href="https://linkedin.com/in/tsegaye-talegngeta27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white text-2xl cursor-pointer hover:text-white/80 transition-colors duration-300"
-            >
-              <FaLinkedin />
-            </Link>
-            <Link
-              aria-label="GitHub"
-              href="https://github.com/tsegaye27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white text-2xl cursor-pointer hover:text-white/80 transition-colors duration-300"
-            >
-              <FaGithub />
-            </Link>
+          {/* ── headline ───────────────────────────────────────────────── */}
+          <div className="mt-10 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-8">
+              <h1 className="font-display text-[clamp(3rem,11vw,9rem)] leading-[0.86] tracking-[-0.03em]">
+                <WordReveal text="Tsegaye" immediate className="block" />
+                <WordReveal
+                  text="Talegngeta"
+                  immediate
+                  delay={0.12}
+                  className="text-bone-400 block italic"
+                />
+              </h1>
+
+              <Reveal delay={0.35} className="mt-8 max-w-xl">
+                <p className="text-bone-200 text-lg leading-relaxed md:text-xl">
+                  {profile.intro}
+                </p>
+              </Reveal>
+
+              <Reveal delay={0.45} className="mt-10 flex flex-wrap items-center gap-4">
+                <Magnetic pull={0.25}>
+                  <a
+                    href="#work"
+                    className="group bg-bone-50 text-ink-950 hover:bg-flare inline-flex h-12 items-center gap-3 rounded-full px-7 text-sm font-semibold transition-colors duration-500"
+                  >
+                    See the work
+                    <span className="transition-transform duration-500 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </a>
+                </Magnetic>
+                <Magnetic pull={0.25}>
+                  <a
+                    href={profile.cv}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-bone-50/20 text-bone-50 hover:border-bone-50/60 inline-flex h-12 items-center gap-3 rounded-full border px-7 text-sm font-semibold transition-colors duration-500"
+                  >
+                    Download CV
+                    <span className="text-bone-400">↓</span>
+                  </a>
+                </Magnetic>
+              </Reveal>
+            </div>
+
+            {/* ── portrait + role card ───────────────────────────────────── */}
+            <div className="lg:col-span-4">
+              <Reveal delay={0.25} distance={40}>
+                <motion.div
+                  style={reduced ? {} : { y: portraitY }}
+                  className="relative"
+                >
+                  <div className="border-bone-50/10 relative aspect-4/5 overflow-hidden rounded-2xl border">
+                    <Image
+                      src={portrait}
+                      alt={profile.name}
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 24rem, 100vw"
+                      className="object-cover object-top grayscale transition-[filter,transform] duration-[1.2s] ease-out hover:scale-[1.03] hover:grayscale-0"
+                    />
+                    <div
+                      aria-hidden
+                      className="from-ink-950 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+                    />
+                  </div>
+
+                  <div className="mt-5 space-y-3">
+                    <p className="font-display text-2xl">
+                      {profile.role}
+                      <span className="text-bone-600 mx-2">/</span>
+                      <span className="text-bone-400 italic">
+                        {profile.secondaryRole}
+                      </span>
+                    </p>
+                    <dl className="grid grid-cols-2 gap-x-4 gap-y-2">
+                      {facts.map((fact) => (
+                        <div key={fact.label}>
+                          <dt className="label">{fact.label}</dt>
+                          <dd className="text-bone-200 mt-0.5 text-sm">
+                            {fact.value}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </motion.div>
+              </Reveal>
+            </div>
           </div>
-        </div>
 
-        <div className="bg-gray-950 border border-gray-800 px-4 py-1.5 flex items-center gap-4 rounded-lg mt-4">
-          <div className="bg-green-500 size-2.5 relative rounded-full">
-            <div className="bg-green-500 size-2.5 absolute inset-0 rounded-full animate-ping-large"></div>
-          </div>
-          <div className="font-medium text-sm">Available for new projects</div>
-        </div>
-        <div className="max-w-lg mx-auto mt-8 text-center">
-          <h1 className="font-serif text-3xl md:text-5xl tracking-wide">
-            Tsegaye Talegngeta
-          </h1>
-          <span className="block text-2xl md:text-4xl text-white/90 font-sans mt-1">
-            Full Stack Developer
-          </span>
-          <span className="text-white/75 mt-2 block">
-            Addis Ababa, Ethiopia
-          </span>
-          <p className="mt-4 text-white/60">
-            I&apos;m 23 years old, I like building fast and efficient web apps.
-            I bring designs to life with scalable solutions.
-          </p>
-        </div>
-
-        <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4">
-          <Link
-            href="#experience"
-            onClick={(e) => {
-              e.preventDefault();
-              handleScroll("experience");
-            }}
+          {/* ── socials ────────────────────────────────────────────────── */}
+          <Reveal
+            delay={0.55}
+            className="rule mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 border-t pt-5"
           >
-            <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl">
-              <span className="font-semibold">Explore my work</span>
-            </button>
-          </Link>
-          <Link href="/Tsegaye_Talegngeta_CV.pdf" target="_blank">
-            <button className="inline-flex items-center gap-2 border border-white bg-white px-6 h-12 rounded-xl">
-              <ArrowDown className="size-4 text-gray-900" />
-              <span className="font-semibold text-gray-900">Download CV</span>
-            </button>
-          </Link>
-        </div>
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-sweep text-bone-400 hover:text-bone-50 font-mono text-xs tracking-[0.14em] uppercase transition-colors"
+              >
+                {social.label}
+              </a>
+            ))}
+            <span className="label ml-auto hidden lg:inline">Scroll ↓</span>
+          </Reveal>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,96 +1,148 @@
 "use client";
-import { SectionHeader } from "@/components/SectionHeader";
-import { Card } from "@/components/Card";
-import JavaScriptIcon from "@/assets/icons/square-js.svg";
-import HtmlIcon from "@/assets/icons/html5.svg";
-import CssIcon from "@/assets/icons/css3.svg";
-import ReactIcon from "@/assets/icons/react.svg";
-import TypeScriptIcon from "@/assets/icons/typescript.svg";
-import GoIcon from "@/assets/icons/golang.svg";
-import NestIcon from "@/assets/icons/nestjs.svg";
-import NuxtIcon from "@/assets/icons/nuxt.svg";
-import NextIcon from "@/assets/icons/nextjs.svg";
-import ExpressIcon from "@/assets/icons/express.svg";
-import TailwindIcon from "@/assets/icons/tailwindcss.svg";
-import { CardHeader } from "@/components/CardHeader";
-import { ToolboxItems } from "@/components/ToolboxItems";
-import { motion } from "framer-motion";
+
+import { motion, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 
-export const AboutSection = () => {
-  const constraintRef = useRef(null);
-  const toolboxItems = [
-    { title: "HTML", iconType: HtmlIcon },
-    { title: "CSS", iconType: CssIcon },
-    { title: "JavaScript", iconType: JavaScriptIcon },
-    { title: "TypeScript", iconType: TypeScriptIcon },
-    { title: "Go", iconType: GoIcon },
-    { title: "Nest", iconType: NestIcon },
-    { title: "React.js", iconType: ReactIcon },
-    { title: "Next.js", iconType: NextIcon },
-    { title: "Nuxt.js", iconType: NuxtIcon },
-    { title: "Express.js", iconType: ExpressIcon },
-    { title: "Tailwind CSS", iconType: TailwindIcon },
-  ];
+import { Reveal } from "@/components/Reveal";
+import { WordReveal } from "@/components/WordReveal";
+import { hobbies, stack } from "@/lib/content";
 
-  const hobbies = [
-    { title: "Football", emoji: "⚽", top: "45%", left: "5%" },
-    { title: "Movies", emoji: "🎬", top: "40%", left: "50%" },
-    { title: "Anime", emoji: "🌀", top: "35%", left: "10%" },
-    { title: "Chess", emoji: "♟️", top: "35%", left: "40%" },
-    { title: "Reading", emoji: "📚", top: "45%", left: "70%" },
-  ];
+const principles = [
+  {
+    n: "01",
+    title: "Correctness before cleverness",
+    body: "Money moves through the systems I build. Idempotency, retries and audit trails come first; the elegant abstraction comes second.",
+  },
+  {
+    n: "02",
+    title: "Boundaries you can point at",
+    body: "Services split along real seams — a gateway, a relay, a ledger — so a change stays where it started instead of rippling outward.",
+  },
+  {
+    n: "03",
+    title: "Ship, then sharpen",
+    body: "A working slice in production teaches more than a month of planning. I get it live, watch it, and refine against what actually happens.",
+  },
+];
+
+/** Hand-placed so the hobby chips read as a scattered pile, not a list. */
+const chipPositions = [
+  { top: "14%", left: "8%" },
+  { top: "44%", left: "42%" },
+  { top: "68%", left: "12%" },
+  { top: "26%", left: "58%" },
+  { top: "56%", left: "6%" },
+];
+
+export const About = () => {
+  const dragArea = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
 
   return (
-    <div className="py-16 px-4 md:px-10 lg:px-14">
-      <SectionHeader
-        eyebrow="About Me"
-        title="Glimpse into my world"
-        description="I'm a full-stack developer who enjoys building clean, scalable applications and exploring new technologies."
-      />
+    <div className="py-24 md:py-32">
+      <div className="shell">
+        <Reveal className="rule border-b pb-5">
+          <span className="label">About</span>
+          <h2 className="font-display mt-3 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.02em]">
+            <WordReveal text="How I work, and what with" />
+          </h2>
+        </Reveal>
 
-      <div className="mt-12 flex flex-col lg:flex-row lg:justify-center items-center gap-4">
-        <Card className="h-80 p-0 w-full md:w-150 lg:w-200">
-          <CardHeader
-            title="My Toolbox"
-            description="Technologies I use to build scalable applications."
-            className="px-6 pt-6"
-          />
-          <ToolboxItems
-            items={toolboxItems}
-            className=""
-            itemsWrapperClassName="animate-move-left"
-          />
-          <ToolboxItems
-            items={toolboxItems}
-            className="mt-6"
-            itemsWrapperClassName="animate-move-right"
-          />
-        </Card>
-        <Card className="h-80 p-0 flex flex-col w-full md:w-100 lg:w-125">
-          <CardHeader
-            title="While I'm not coding"
-            description="Things I enjoy outside coding."
-            className="px-6 py-6"
-          />
-          <div className="relative flex-1" ref={constraintRef}>
-            {hobbies.map((hobby) => (
-              <motion.div
-                key={hobby.title}
-                className="inline-flex items-center gap-2 px-6 bg-linear-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
-                style={{
-                  left: hobby.left,
-                  top: hobby.top,
-                }}
-                drag
-                dragConstraints={constraintRef}
-              >
-                <span className="font-medium text-gray-950">{hobby.title}</span>
-                <span>{hobby.emoji}</span>
-              </motion.div>
-            ))}
+        <div className="mt-12 grid gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* ── narrative ──────────────────────────────────────────────── */}
+          <div className="lg:col-span-7">
+            <Reveal>
+              <p className="font-display text-2xl leading-snug text-balance md:text-3xl">
+                I started in the browser and ended up{" "}
+                <span className="text-flare italic">underneath it</span> — in
+                the services that decide whether a payment succeeds or fails
+                honestly.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <p className="text-bone-400 mt-6 leading-relaxed">
+                Today I write Go at AddisPay, building the microservices behind
+                a payment gateway wired into Ethiopian banks and mobile wallets.
+                Before that: a Nuxt frontend for a missing-person platform, an
+                eSIM storefront on NestJS, a RAG-backed onboarding bot, and a
+                run of freelance builds that taught me how much of engineering
+                is really about drawing clear boundaries.
+              </p>
+            </Reveal>
+
+            <div className="mt-12">
+              {principles.map((principle, i) => (
+                <Reveal key={principle.n} delay={i * 0.08}>
+                  <div className="rule group border-t py-6">
+                    <div className="flex gap-5">
+                      <span className="label group-hover:text-flare pt-1.5 transition-colors duration-500">
+                        {principle.n}
+                      </span>
+                      <div>
+                        <h3 className="font-display text-xl md:text-2xl">
+                          {principle.title}
+                        </h3>
+                        <p className="text-bone-400 mt-2 text-sm leading-relaxed">
+                          {principle.body}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </Card>
+
+          {/* ── toolbox + hobbies ──────────────────────────────────────── */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-24">
+              <Reveal>
+                <span className="label">Toolbox</span>
+                <ul className="border-bone-50/10 bg-bone-50/10 mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border sm:grid-cols-3 lg:grid-cols-2">
+                  {stack.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <li
+                        key={item.title}
+                        className="bg-ink-950 hover:bg-ink-900 group flex items-center gap-3 p-4 transition-colors"
+                      >
+                        <Icon className="tech-svg text-bone-600 group-hover:text-flare size-5 shrink-0 transition-colors duration-500" />
+                        <span className="min-w-0 truncate text-sm font-medium">
+                          {item.title}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Reveal>
+
+              <Reveal delay={0.15} className="mt-10">
+                <span className="label">Off the clock — drag them around</span>
+                <div
+                  ref={dragArea}
+                  className="border-bone-50/10 bg-ink-900/50 relative mt-5 h-56 overflow-hidden rounded-xl border"
+                >
+                  {hobbies.map((hobby, i) => (
+                    <motion.span
+                      key={hobby.title}
+                      drag={!reduced}
+                      dragConstraints={dragArea}
+                      dragElastic={0.15}
+                      dragMomentum={false}
+                      whileDrag={{ scale: 1.08, zIndex: 10 }}
+                      style={chipPositions[i]}
+                      className="border-bone-50/15 bg-ink-800 text-bone-50 absolute inline-flex cursor-grab items-center gap-2 rounded-full border px-4 py-2 text-sm select-none active:cursor-grabbing"
+                    >
+                      {hobby.title}
+                      <span aria-hidden>{hobby.emoji}</span>
+                    </motion.span>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
