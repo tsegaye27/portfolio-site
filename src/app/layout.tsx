@@ -1,33 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Neuton } from "next/font/google";
 
 import { profile } from "@/lib/content";
-import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
-const display = Instrument_Serif({
+const serif = Neuton({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "700", "800"],
   style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
+  variable: "--font-neuton",
   display: "swap",
 });
 
-const sans = Inter_Tight({
+const mono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-inter-tight",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
 const title = `${profile.name} — ${profile.role}`;
-const description =
-  "Backend developer in Addis Ababa at Pitron Tech Solutions. Payment infrastructure in Go, plus full-stack products in TypeScript, Next.js and NestJS.";
+const description = profile.intro;
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
@@ -61,13 +54,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf8f3" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0d" },
-  ],
-};
+export const viewport: Viewport = { themeColor: "#efece4" };
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -88,16 +75,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      // suppressHydrationWarning: the boot script below rewrites data-theme
-      // before React hydrates, so the server markup deliberately differs.
-      suppressHydrationWarning
-      className={`${display.variable} ${sans.variable} ${mono.variable}`}
-    >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
-      </head>
+    <html lang="en" className={`${serif.variable} ${mono.variable}`}>
       <body className="antialiased">
         <script
           type="application/ld+json"

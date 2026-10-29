@@ -1,282 +1,66 @@
 @import "tailwindcss";
 
-/* ── Paper & Ink ──────────────────────────────────────────────────────────
-   One editorial design, two skins. Every colour is a semantic role, not a
-   shade — `text-body`, not `text-bone-400` — so light and dark are the same
-   markup with a different set of values underneath.
-
-   Contrast floor: body and heading text clear WCAG AA comfortably, and the
-   mono metadata (`.label`, 11px) clears AA for small text in both modes.
-   ──────────────────────────────────────────────────────────────────────── */
-
-/* `inline` matters: it makes the generated utilities reference the variable
-   at use-time rather than baking in a literal, which is what lets the same
-   `text-heading` class resolve differently per theme. */
 @theme inline {
-  --color-canvas: var(--canvas);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-heading: var(--heading);
-  --color-body: var(--body);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
-  --color-accent: var(--accent);
-  --color-accent-quiet: var(--accent-quiet);
-  --color-on-accent: var(--on-accent);
+  --color-paper: #efece4;
+  --color-ink: #1a1a17;
+  --color-card: #fbfaf6;
+  --color-folder: #e3cf9c;
+  --color-tab: #d2ccbc;
+  --color-kraft: #c4a86a;
+  --color-stamp: #b8301c;
+  --color-muted-ink: #4a3f27;
+  --color-manila-body: #3a3220;
+  --color-stage: #e4ded0;
 
-  /* Sourced from next/font under distinct names — a theme token that reads
-     a variable of its own name on the same element resolves to nothing. */
-  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
-  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
-
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
-
-  --animate-drift-left: drift-left 38s linear infinite;
-  --animate-drift-right: drift-right 38s linear infinite;
-  --animate-pulse-ring: pulse-ring 2.4s var(--ease-out-expo) infinite;
-  --animate-blink: blink 1.1s steps(2, start) infinite;
-}
-
-/* ── Light: warm paper ─────────────────────────────────────────────────── */
-:root {
-  color-scheme: light;
-
-  --canvas: #faf8f3;
-  --surface: #f1ede4;
-  --surface-2: #e8e3d8;
-
-  --heading: #16150f; /* 17.2:1 on canvas */
-  --body: #4a4740; /*  8.7:1 */
-  --muted: #6b665c; /*  5.4:1 — AA at 11px */
-  --line: rgb(22 21 15 / 0.14);
-  --line-strong: rgb(22 21 15 / 0.28);
-
-  --accent: #9a5b00; /*  5.1:1 */
-  --accent-quiet: rgb(154 91 0 / 0.1);
-  --on-accent: #faf8f3;
-
-  --glow: rgb(154 91 0 / 0.09);
-  --grain-opacity: 0.03;
-  --grain-blend: multiply;
-  --vignette: rgb(22 21 15 / 0.1);
-  --grid-line: rgb(22 21 15 / 0.06);
-  --shadow-color: rgb(22 21 15 / 0.18);
-}
-
-/* ── Dark: deep ink ────────────────────────────────────────────────────── */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-
-  --canvas: #0b0b0d;
-  --surface: #141418;
-  --surface-2: #1c1c22;
-
-  --heading: #f2efe8; /* 17.1:1 on canvas */
-  --body: #c3bfb4; /* 10.7:1 */
-  --muted: #9a9488; /*  6.5:1 — AA at 11px */
-  --line: rgb(242 239 232 / 0.14);
-  --line-strong: rgb(242 239 232 / 0.3);
-
-  --accent: #f5be55; /* 11.6:1 */
-  --accent-quiet: rgb(245 190 85 / 0.12);
-  --on-accent: #0b0b0d;
-
-  --glow: rgb(245 190 85 / 0.13);
-  --grain-opacity: 0.025;
-  --grain-blend: screen;
-  --vignette: rgb(0 0 0 / 0.3);
-  --grid-line: rgb(242 239 232 / 0.045);
-  --shadow-color: rgb(0 0 0 / 0.55);
-}
-
-/* System preference wins when the visitor has not chosen explicitly. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --canvas: #0b0b0d;
-    --surface: #141418;
-    --surface-2: #1c1c22;
-
-    --heading: #f2efe8;
-    --body: #c3bfb4;
-    --muted: #9a9488;
-    --line: rgb(242 239 232 / 0.14);
-    --line-strong: rgb(242 239 232 / 0.3);
-
-    --accent: #f5be55;
-    --accent-quiet: rgb(245 190 85 / 0.12);
-    --on-accent: #0b0b0d;
-
-    --glow: rgb(245 190 85 / 0.13);
-    --grain-opacity: 0.025;
-    --grain-blend: screen;
-    --vignette: rgb(0 0 0 / 0.3);
-  --grid-line: rgb(242 239 232 / 0.045);
-  --shadow-color: rgb(0 0 0 / 0.55);
-  }
-}
-
-@keyframes drift-left {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes drift-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  70%,
-  100% {
-    transform: scale(3.2);
-    opacity: 0;
-  }
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  --font-serif: var(--font-neuton), Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 @layer base {
-  html {
-    scrollbar-color: var(--line-strong) var(--canvas);
-    scrollbar-width: thin;
-    -webkit-tap-highlight-color: transparent;
-  }
-
   body {
-    background-color: var(--canvas);
-    color: var(--body);
-    font-family: var(--font-sans);
-    /* Native fallback for anchor jumps before Lenis boots / with JS off. */
-    scroll-behavior: smooth;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    background-color: var(--color-paper);
+    background-image:
+      radial-gradient(rgba(26, 26, 23, 0.07) 0.6px, transparent 0.8px),
+      radial-gradient(rgba(26, 26, 23, 0.045) 0.6px, transparent 0.8px);
+    background-size: 5px 5px, 7px 7px;
+    background-position: 0 0, 2px 3px;
   }
 
-  /* Lenis owns the scroll position once mounted — stand native smoothing down. */
-  html.lenis {
-    scroll-behavior: auto;
+  a {
+    color: var(--color-ink);
   }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
+  a:hover {
+    color: var(--color-stamp);
   }
 
-  ::selection {
-    background-color: var(--accent);
-    color: var(--on-accent);
+  button {
+    cursor: pointer;
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--color-stamp);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 
-  ::-webkit-scrollbar {
-    width: 9px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: var(--canvas);
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--line-strong);
-    border-radius: 99px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--muted);
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
   }
 }
 
 @utility shell {
-  width: 100%;
-  max-width: 78rem;
+  max-width: 1200px;
   margin-inline: auto;
-  padding-inline: 1.25rem;
-
-  @media (width >= 48rem) {
-    padding-inline: 2.5rem;
-  }
-  @media (width >= 80rem) {
-    padding-inline: 3.5rem;
-  }
-}
-
-/* Small uppercase mono label used for every piece of metadata on the page.
-   Letter-spacing is what keeps it legible at this size, not weight. */
-@utility label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* Hairline rule. Pair with the border-side utility: `rule border-b`. */
-@utility rule {
-  border-color: var(--line);
-}
-
-/* Tech logos ship with hardcoded fills — force them onto currentColor. */
-@utility tech-svg {
-  fill: currentColor;
-
-  & path,
-  & g {
-    fill: currentColor;
-  }
-}
-
-@layer components {
-  /* Link whose underline sweeps in from the left and out to the right. */
-  .link-sweep {
-    position: relative;
-    display: inline-block;
-  }
-  .link-sweep::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -0.15em;
-    height: 1px;
-    width: 100%;
-    background-color: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s var(--ease-out-expo);
-  }
-  .link-sweep:hover::after,
-  .link-sweep:focus-visible::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
+  padding-inline: 24px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
