@@ -5,7 +5,8 @@ import { chunk, MAX_LEN, reply, topK, type Msg } from "@/lib/chatty";
 import { about, builds, contact, experience, profile, sideProjects } from "@/lib/content";
 
 const API = "https://generativelanguage.googleapis.com/v1beta/models";
-const CHAT_MODEL = "gemini-flash-latest";
+// Tried in order: Flash is often busy, Flash-Lite is the cheaper backup.
+const CHAT_MODELS = ["gemini-flash-latest", "gemini-flash-lite-latest"];
 const EMBED_MODEL = "gemini-embedding-001";
 const TOP_K = 6;
 const HISTORY = 6;
@@ -84,17 +85,26 @@ async function answer(msgs: Msg[]) {
   const [qv] = await embed([question], "RETRIEVAL_QUERY");
   const context = topK(qv, vecs, TOP_K).map((i) => chunks[i]).join("\n\n---\n\n");
 
-  const data = await gemini<{ candidates?: { content?: { parts?: { text?: string }[] } }[] }>(
-    `${CHAT_MODEL}:generateContent`,
-    {
-      systemInstruction: { parts: [{ text: `${SYSTEM}\n\nCONTEXT:\n${context}` }] },
-      contents: msgs.map((m) => ({ role: m.from === "me" ? "user" : "model", parts: [{ text: m.text }] })),
-      generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
-    },
-  );
-  const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("").trim();
-  if (!text) throw new Error("Gemini returned no text");
-  return text;
+  const body = {
+    systemInstruction: { parts: [{ text: `${SYSTEM}\n\nCONTEXT:\n${context}` }] },
+    contents: msgs.map((m) => ({ role: m.from === "me" ? "user" : "model", parts: [{ text: m.text }] })),
+    generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
+  };
+  let err: unknown;
+  for (const model of CHAT_MODELS) {
+    try {
+      const data = await gemini<{ candidates?: { content?: { parts?: { text?: string }[] } }[] }>(
+        `${model}:generateContent`,
+        body,
+      );
+      const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("").trim();
+      if (text) return text;
+      err = new Error(`${model} returned no text`);
+    } catch (e) {
+      err = e;
+    }
+  }
+  throw err;
 }
 
 export async function POST(req: Request) {
