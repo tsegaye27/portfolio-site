@@ -1,3 +1,4 @@
+import { Chatty } from "@/components/Chatty";
 import { Studio } from "@/components/Studio";
 import { profile, socials } from "@/lib/content";
 
@@ -64,6 +65,8 @@ export default function Home() {
         <span>© 2026 {profile.name}</span>
         <span>Made in Addis Ababa</span>
       </footer>
+
+      <Chatty />
     </>
   );
 }
