@@ -400,11 +400,6 @@ export function Stage({
   return (
     <section aria-label="Interactive studio" className="shell pb-2">
       <div className="relative h-[640px] overflow-hidden rounded-2xl border-[1.5px] border-ink bg-stage max-[1100px]:h-[540px] max-[760px]:h-[420px] max-[480px]:h-[320px]">
-        <span className="absolute right-5 bottom-4 left-5 z-[2] text-right font-mono text-[11px] tracking-[0.08em] text-muted-ink uppercase">
-          <span className="max-[480px]:hidden">Click a room to walk · drag furniture to rearrange</span>
-          <span className="hidden max-[480px]:inline">Tap a room · drag furniture</span>
-        </span>
-
         <Caption speech={speech} tab={tab} />
 
         <span className="sr-only" aria-live="polite">
