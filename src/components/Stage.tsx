@@ -1,16 +1,15 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 
 import { tabs, type TabId } from "@/lib/content";
+import { nextOffset, screenToFloor, type Offset, type Placed, type Rect } from "@/lib/drag";
 
 const STAMP = "#B8301C";
 
 /* ── Geometry ────────────────────────────────────────────────────────────
    The floor is a 640×640 plane viewed isometrically. Coordinates below are
    floor pixels: x grows to the right-back, y to the left-front. */
-
-type Rect = [minX: number, minY: number, maxX: number, maxY: number];
 
 type Point = [x: number, y: number];
 
@@ -41,8 +40,8 @@ type BoxSpec = {
 
 type Piece = { id: string; room: TabId; footprint: Rect; boxes: BoxSpec[] };
 
-// Footprints drive drag clamping and collision (phase 7).
-export const pieces: Piece[] = [
+// Footprints drive drag clamping and collision.
+const pieces: Piece[] = [
   {
     id: "desk",
     room: "experience",
@@ -150,6 +149,10 @@ export const pieces: Piece[] = [
     ],
   },
 ];
+
+const placed: Record<string, Placed> = Object.fromEntries(
+  pieces.map((p) => [p.id, { room: rooms[p.room].rect, footprint: p.footprint }]),
+);
 
 /* ── Primitives ──────────────────────────────────────────────────────── */
 
@@ -363,6 +366,37 @@ export function Stage({
   tab, go, char, speech,
 }: { tab: TabId; go: (t: TabId) => void; char: CharState; speech: Speech }) {
   const room = tabs.find((t) => t.id === tab)!;
+
+  // Furniture layout resets on reload.
+  const [off, setOff] = useState<Record<string, Offset>>({});
+  const [dragging, setDragging] = useState<string | null>(null);
+  const drag = useRef<{ id: string; x: number; y: number; start: Offset; scale: number } | null>(null);
+
+  function onDown(id: string, e: PointerEvent<HTMLElement>) {
+    e.stopPropagation();
+    e.preventDefault();
+    // Screen deltas shrink with the responsive scale on .iso; divide it back out.
+    const iso = e.currentTarget.closest(".iso");
+    const scale = (iso && parseFloat(getComputedStyle(iso).scale)) || 1;
+    (e.target as Element).setPointerCapture(e.pointerId);
+    drag.current = { id, x: e.clientX, y: e.clientY, start: off[id] ?? { dx: 0, dy: 0 }, scale };
+    setDragging(id);
+  }
+
+  function onMove(e: PointerEvent) {
+    const d = drag.current;
+    if (!d) return;
+    const { fx, fy } = screenToFloor((e.clientX - d.x) / d.scale, (e.clientY - d.y) / d.scale);
+    setOff((o) => {
+      const n = nextOffset(d.id, { dx: d.start.dx + fx, dy: d.start.dy + fy }, placed, o);
+      return n ? { ...o, [d.id]: n } : o;
+    });
+  }
+
+  function onUp() {
+    drag.current = null;
+    setDragging(null);
+  }
   return (
     <section aria-label="Interactive studio" className="shell pb-2">
       <div className="relative h-[640px] overflow-hidden rounded-2xl border-[1.5px] border-ink bg-stage max-[1100px]:h-[540px] max-[760px]:h-[420px] max-[480px]:h-[320px]">
@@ -451,13 +485,27 @@ export function Stage({
               <Patch x={100} y={392} w={150} d={170} c="#CDB6A2" />
               <Patch x={560} y={586} w={66} d={40} c="#8F3120" />
 
-              {pieces.map((p) => (
-                <div key={p.id} className="absolute inset-0 [&>*]:pointer-events-auto" style={{ transformStyle: "preserve-3d" }}>
-                  {p.boxes.map((b, i) => (
-                    <Box key={i} {...b} />
-                  ))}
-                </div>
-              ))}
+              {pieces.map((p) => {
+                const o = off[p.id] ?? { dx: 0, dy: 0 };
+                return (
+                  <div
+                    key={p.id}
+                    onPointerDown={(e) => onDown(p.id, e)}
+                    onPointerMove={onMove}
+                    onPointerUp={onUp}
+                    onPointerCancel={onUp}
+                    className="absolute inset-0 [&>*]:pointer-events-auto [&>*]:cursor-grab [&>*]:touch-none [&>*]:active:cursor-grabbing"
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: `translate(${o.dx}px, ${o.dy}px)${dragging === p.id ? " translateZ(8px)" : ""}`,
+                    }}
+                  >
+                    {p.boxes.map((b, i) => (
+                      <Box key={i} {...b} />
+                    ))}
+                  </div>
+                );
+              })}
 
               <Character c={char} />
             </div>
