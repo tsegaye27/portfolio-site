@@ -1,4 +1,4 @@
-import { Cabinet } from "@/components/Cabinet";
+import { Studio } from "@/components/Studio";
 import { profile, socials } from "@/lib/content";
 
 export default function Home() {
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
         </section>
 
-        <Cabinet />
+        <Studio />
       </main>
 
       <footer className="shell flex flex-wrap justify-between gap-3 pb-10 font-mono text-xs tracking-[0.06em] uppercase">

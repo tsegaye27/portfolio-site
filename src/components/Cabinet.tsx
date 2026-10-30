@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useRef, type KeyboardEvent } from "react";
 
 import {
   about,
@@ -20,8 +20,7 @@ const label = "font-mono text-xs tracking-[0.08em] text-muted-ink uppercase";
 const h2 = "m-0 text-[clamp(48px,7vw,96px)] leading-[0.95] font-bold tracking-[-0.025em]";
 const rule = "border-[rgba(26,26,23,0.35)]";
 
-export function Cabinet() {
-  const [tab, setTab] = useState<TabId>("experience");
+export function Cabinet({ tab, setTab }: { tab: TabId; setTab: (t: TabId) => void }) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // ARIA tabs pattern: arrows move between tabs, Home/End jump to the ends.

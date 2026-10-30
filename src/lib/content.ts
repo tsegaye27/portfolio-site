@@ -19,10 +19,34 @@ export const socials = [
 ] as const;
 
 export const tabs = [
-  { id: "experience", no: "01", label: "Experience" },
-  { id: "projects", no: "02", label: "Projects" },
-  { id: "about", no: "03", label: "About" },
-  { id: "contact", no: "04", label: "Contact" },
+  {
+    id: "experience",
+    no: "01",
+    label: "Experience",
+    room: "Workshop",
+    line: "Where the day job happens: payment services and the systems around them.",
+  },
+  {
+    id: "projects",
+    no: "02",
+    label: "Projects",
+    room: "Lab",
+    line: "Client builds and side projects, shipped and in progress. Mind the blocks.",
+  },
+  {
+    id: "about",
+    no: "03",
+    label: "About",
+    room: "Lounge",
+    line: "Where I read, rewatch anime and lose at chess. The board is set up.",
+  },
+  {
+    id: "contact",
+    no: "04",
+    label: "Contact",
+    room: "Desk",
+    line: "Leave a note in the tray. I answer every one.",
+  },
 ] as const;
 
 export type TabId = (typeof tabs)[number]["id"];
