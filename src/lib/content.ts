@@ -62,11 +62,13 @@ export type Project = {
   blurb: string;
   stack: string;
   href?: string;
+  image?: string;
 };
 
 export const builds: Project[] = [
   {
     title: "BambooSIM",
+    image: "/projects/bamboosim.png",
     context: "Upwork · 24–25",
     href: "https://bamboosim.com/",
     blurb:
@@ -75,6 +77,7 @@ export const builds: Project[] = [
   },
   {
     title: "Onboarding Bot",
+    image: "/projects/onboarding-bot.png",
     context: "Upwork · 24–25",
     blurb:
       "A Discord bot that runs intern onboarding and answers questions from a Notion knowledge base via RAG.",
@@ -82,24 +85,28 @@ export const builds: Project[] = [
   },
   {
     title: "Shipment Tracker",
+    image: "/projects/shipment-tracker.png",
     context: "Client · 2025",
     blurb: "A logistics system for managing and tracking shipment status end to end for a client's team.",
     stack: "Next.js · NestJS · MongoDB",
   },
   {
     title: "Flow Editor",
+    image: "/projects/flow-editor.jpg",
     context: "Upwork · 24–25",
     blurb: "A node-based React Flow interface on a Node and Express backend, built for long-term maintenance.",
     stack: "React Flow · Express · Node",
   },
   {
     title: "Reunite Us",
+    image: "/projects/reunite-us.png",
     context: "Ewenet · 2024",
     blurb: "Reporting missing people, with user roles, admin approval of posts, search and filters.",
     stack: "Nuxt · Tailwind · NestJS",
   },
   {
     title: "Lifeline Health",
+    image: "/projects/lifeline-health.png",
     context: "Freelance · 2024",
     href: "https://lifelinehealthinitiatives.org",
     blurb: "A fast, responsive site for a medical organization, landed through a word-of-mouth referral.",
@@ -110,6 +117,7 @@ export const builds: Project[] = [
 export const sideProjects: Project[] = [
   {
     title: "Ceramics Store",
+    image: "/projects/ceramics-store.png",
     context: "Personal · Oct 2024",
     href: "https://ceramics-store.vercel.app",
     blurb: "Inventory system for a ceramics shop, with Recharts for sales and stock insights.",
@@ -117,6 +125,7 @@ export const sideProjects: Project[] = [
   },
   {
     title: "Dot Code",
+    image: "/projects/dot-code.png",
     context: "Team · Jan 2025",
     href: "https://dot-deploy-front-end1.vercel.app",
     blurb: "A collaborative snippet manager; I built versioning inside the editor.",
@@ -124,6 +133,7 @@ export const sideProjects: Project[] = [
   },
   {
     title: "Songify",
+    image: "/projects/songify.png",
     context: "Personal · May 2024",
     href: "https://songify-nine.vercel.app",
     blurb: "Song management CRUD app — my first run at containerizing with Docker.",

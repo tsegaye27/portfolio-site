@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState, type KeyboardEvent } from "react";
 
 import {
@@ -137,35 +138,57 @@ function Projects() {
 }
 
 // `no` set = a selected build (numbered header, LIVE stamp); unset = side project.
+// The card sits in a kraft folder; on hover/focus its screenshot slides up out of it.
 function ProjectCard({ project: p, no }: { project: Project; no?: number }) {
   const Tag = p.href ? "a" : "div";
   return (
-    <Tag
-      href={p.href}
-      className={`relative z-[1] flex flex-col gap-3.5 border border-ink bg-card p-[22px] no-underline ${
-        no ? "min-h-[250px]" : "min-h-[220px]"
-      }`}
-    >
-      {no ? (
-        <div className="flex justify-between border-b border-dashed border-[rgba(26,26,23,0.4)] pb-2.5 font-mono text-[11px] tracking-[0.06em] uppercase">
-          <span>No. {String(no).padStart(2, "0")}</span>
-          <span>{p.context}</span>
+    <div className="pcard relative pt-[18px]">
+      <div aria-hidden="true" className="absolute top-0 left-0 h-5 w-24 rounded-t-lg bg-kraft" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-3.5 -bottom-1.5 rounded-tl-xs rounded-r-[10px] rounded-bl-[10px] bg-kraft" />
+      {p.image && (
+        <div
+          aria-hidden="true"
+          className="peek absolute inset-x-4 top-[26px] h-[170px] border border-ink bg-card p-2 shadow-[0_12px_24px_-12px_rgba(26,26,23,0.5)]"
+        >
+          <div className="flex h-full flex-col overflow-hidden">
+            <div className="flex gap-1 bg-ink px-2 py-1.5">
+              <span className="size-1.5 rounded-full bg-paper" />
+              <span className="size-1.5 rounded-full bg-paper" />
+              <span className="size-1.5 rounded-full bg-paper" />
+            </div>
+            <div className="relative grow">
+              <Image src={p.image} alt="" fill sizes="340px" className="object-cover object-top" />
+            </div>
+          </div>
         </div>
-      ) : (
-        <span className="font-mono text-[11px] tracking-[0.06em] uppercase">
-          {p.context}
-          {p.href && " ↗"}
-        </span>
       )}
-      <h3 className="m-0 text-[32px] leading-[1.05] font-bold tracking-[-0.01em]">{p.title}</h3>
-      <p className="m-0 grow text-[17px] leading-[1.45]">{p.blurb}</p>
-      <span className="font-mono text-[11px] text-muted-ink uppercase">{p.stack}</span>
-      {no && p.href && (
-        <span className="absolute top-[46px] right-4 rotate-8 border-2 border-stamp px-2 py-[3px] font-mono text-[11px] font-semibold tracking-[0.12em] text-stamp">
-          LIVE ↗
-        </span>
-      )}
-    </Tag>
+      <Tag
+        href={p.href}
+        className={`relative z-[1] flex flex-col gap-3.5 border border-ink bg-card p-[22px] no-underline ${
+          no ? "min-h-[250px]" : "min-h-[220px]"
+        }`}
+      >
+        {no ? (
+          <div className="flex justify-between border-b border-dashed border-[rgba(26,26,23,0.4)] pb-2.5 font-mono text-[11px] tracking-[0.06em] uppercase">
+            <span>No. {String(no).padStart(2, "0")}</span>
+            <span>{p.context}</span>
+          </div>
+        ) : (
+          <span className="font-mono text-[11px] tracking-[0.06em] uppercase">
+            {p.context}
+            {p.href && " ↗"}
+          </span>
+        )}
+        <h3 className="m-0 text-[32px] leading-[1.05] font-bold tracking-[-0.01em]">{p.title}</h3>
+        <p className="m-0 grow text-[17px] leading-[1.45]">{p.blurb}</p>
+        <span className="font-mono text-[11px] text-muted-ink uppercase">{p.stack}</span>
+        {no && p.href && (
+          <span className="absolute top-[46px] right-4 rotate-8 border-2 border-stamp px-2 py-[3px] font-mono text-[11px] font-semibold tracking-[0.12em] text-stamp">
+            LIVE ↗
+          </span>
+        )}
+      </Tag>
+    </div>
   );
 }
 

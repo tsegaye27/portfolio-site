@@ -56,6 +56,26 @@
   padding-inline: 24px;
 }
 
+/* Project card: screenshot slides up out of its kraft folder. */
+.pcard {
+  z-index: 0;
+}
+.pcard:hover,
+.pcard:focus-within {
+  z-index: 3;
+}
+.pcard .peek {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.pcard:hover .peek,
+.pcard:focus-within .peek {
+  transform: translateY(-122px) rotate(-4deg);
+}
+.pcard:nth-child(even):hover .peek,
+.pcard:nth-child(even):focus-within .peek {
+  transform: translateY(-122px) rotate(3deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
