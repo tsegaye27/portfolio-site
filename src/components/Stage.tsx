@@ -12,11 +12,14 @@ const STAMP = "#B8301C";
 
 type Rect = [minX: number, minY: number, maxX: number, maxY: number];
 
-const rooms: Record<TabId, { rect: Rect; floor: string; decal: [number, number] }> = {
-  experience: { rect: [0, 0, 320, 320], floor: "#E8D9AE", decal: [22, 262] },
-  projects: { rect: [320, 0, 640, 320], floor: "#DCE0CF", decal: [342, 262] },
-  about: { rect: [0, 320, 320, 640], floor: "#E8D8CB", decal: [22, 582] },
-  contact: { rect: [320, 320, 640, 640], floor: "#DEDACB", decal: [342, 582] },
+type Point = [x: number, y: number];
+
+// `stand` is where the character stops in each room.
+export const rooms: Record<TabId, { rect: Rect; floor: string; decal: Point; stand: Point }> = {
+  experience: { rect: [0, 0, 320, 320], floor: "#E8D9AE", decal: [22, 262], stand: [190, 165] },
+  projects: { rect: [320, 0, 640, 320], floor: "#DCE0CF", decal: [342, 262], stand: [470, 150] },
+  about: { rect: [0, 320, 320, 640], floor: "#E8D8CB", decal: [22, 582], stand: [220, 470] },
+  contact: { rect: [320, 320, 640, 640], floor: "#DEDACB", decal: [342, 582], stand: [420, 470] },
 };
 
 const wood = { top: "#B98A5B", front: "#9C6F44", right: "#84593A" };
@@ -191,7 +194,103 @@ function Patch({ x, y, w, d, c }: { x: number; y: number; w: number; d: number; 
 
 /* ── Scene ───────────────────────────────────────────────────────────── */
 
-export function Stage({ tab, setTab }: { tab: TabId; setTab: (t: TabId) => void }) {
+/* ── Character ───────────────────────────────────────────────────────── */
+
+export type CharState = { x: number; y: number; facing: number; walking: boolean; waving: boolean; dur: number };
+
+const SKIN = "#7A4E33";
+const SHIRT = "#3B5B7E";
+const HAIR = "#151513";
+const PANTS = "#2B3240";
+
+type Shade = [front: number, back: number, right: number, left: number];
+const BODY: Shade = [0.88, 0.7, 0.76, 0.66];
+
+// Like Box, but with all five faces (the character turns) shaded by brightness.
+function Cube({
+  x, y, w, d, h, z = 0, c, shade = BODY, noTop, noBack, children,
+}: {
+  x: number; y: number; w: number; d: number; h: number; z?: number; c: string;
+  shade?: Shade; noTop?: boolean; noBack?: boolean; children?: ReactNode;
+}) {
+  const [f, b, r, l] = shade;
+  const face = (style: CSSProperties, k: number, kids?: ReactNode) => (
+    <div className="absolute" style={{ background: c, filter: `brightness(${k})`, ...style }}>{kids}</div>
+  );
+  const fold = { transformOrigin: "top", transform: "rotateX(90deg)" };
+  const side = { transformOrigin: "left", transform: "rotateY(-90deg)" };
+  return (
+    <div style={{ ...p3d, left: x, top: y, width: w, height: d, transform: `translateZ(${z}px)` }}>
+      {!noTop && face({ inset: 0, transform: `translateZ(${h}px)` }, 1)}
+      {face({ left: 0, top: d, width: w, height: h, ...fold }, f, children)}
+      {!noBack && face({ left: 0, top: 0, width: w, height: h, ...fold }, b)}
+      {face({ left: w, top: 0, width: h, height: d, ...side }, r)}
+      {face({ left: 0, top: 0, width: h, height: d, ...side }, l)}
+    </div>
+  );
+}
+
+// Swing pivots sit at hip/shoulder height so limbs rotate from the joint.
+function Limb({ x, y, z = 0, anim, children }: { x: number; y: number; z?: number; anim?: string; children: ReactNode }) {
+  return (
+    <div style={{ ...p3d, left: x, top: y, transform: `translateZ(${z}px)` }}>
+      <div className={anim} style={{ ...p3d, transformOrigin: "50% 50% 42px" }}>{children}</div>
+    </div>
+  );
+}
+
+function Leg({ x, anim }: { x: number; anim?: string }) {
+  return (
+    <Limb x={x} y={-7} anim={anim}>
+      <Cube x={0} y={0} w={14} d={16} h={6} c="#2A2622" shade={[0.72, 0.72, 0.55, 0.55]} />
+      <Cube x={0} y={0} w={14} d={14} h={36} z={6} c={PANTS} />
+    </Limb>
+  );
+}
+
+function Arm({ x, anim }: { x: number; anim?: string }) {
+  return (
+    <Limb x={x} y={-6} z={46} anim={anim}>
+      <Cube x={0} y={0} w={11} d={11} h={9} c={SKIN} />
+      <Cube x={0} y={0} w={11} d={11} h={33} z={9} c={SHIRT} />
+    </Limb>
+  );
+}
+
+function Character({ c }: { c: CharState }) {
+  const walk = c.walking ? ["anim-swing-a", "anim-swing-b"] : [undefined, undefined];
+  return (
+    <div
+      className="pointer-events-none"
+      style={{ ...p3d, left: c.x, top: c.y, transition: `left ${c.dur}s ease-in-out, top ${c.dur}s ease-in-out` }}
+    >
+      <div
+        className="absolute -top-[18px] -left-6 h-9 w-12 rounded-[50%] bg-[rgba(26,26,23,0.2)]"
+        style={{ transform: "translateZ(1px)" }}
+      />
+      <div style={{ ...p3d, transform: `rotateZ(${c.facing}deg)`, transition: "transform 0.35s ease" }}>
+        <div className={c.walking ? undefined : "anim-bob"} style={p3d}>
+          <Leg x={-17} anim={walk[0]} />
+          <Leg x={3} anim={walk[1]} />
+          <Cube x={-19} y={-10} w={38} d={20} h={46} z={42} c={SHIRT} />
+          <Arm x={-30} anim={walk[1]} />
+          <Arm x={19} anim={c.waving ? "anim-wave" : walk[0]} />
+          <Cube x={-15} y={-14} w={30} d={28} h={32} z={89} c={SKIN} shade={[0.92, 0.7, 0.78, 0.68]}>
+            <div className="absolute top-[17px] left-[7px] h-[5px] w-1 bg-[#141412]" />
+            <div className="absolute top-[17px] left-[19px] h-[5px] w-1 bg-[#141412]" />
+            <div className="absolute top-2 left-[11px] h-0.5 w-2 bg-[#3A2418]" />
+          </Cube>
+          {/* hair: cap, back, fringe */}
+          <Cube x={-16} y={-15} w={32} d={30} h={8} z={117} c={HAIR} shade={[0.85, 0.85, 0.8, 0.8]} />
+          <Cube x={-16} y={-15} w={32} d={7} h={22} z={97} c={HAIR} shade={[0.85, 0.75, 0.8, 0.8]} noTop />
+          <Cube x={-16} y={11} w={32} d={4} h={6} z={113} c={HAIR} shade={[0.9, 1, 0.8, 0.8]} noTop noBack />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Stage({ tab, go, char }: { tab: TabId; go: (t: TabId) => void; char: CharState }) {
   return (
     <section aria-label="Interactive studio" className="shell pb-2">
       <div className="relative h-[640px] overflow-hidden rounded-2xl border-[1.5px] border-ink bg-stage max-[1100px]:h-[540px] max-[760px]:h-[420px] max-[480px]:h-[320px]">
@@ -211,7 +310,7 @@ export function Stage({ tab, setTab }: { tab: TabId; setTab: (t: TabId) => void 
                 <button
                   key={t.id}
                   aria-label={`Walk to the ${t.room.toLowerCase()} (${t.label})`}
-                  onClick={() => setTab(t.id)}
+                  onClick={() => go(t.id)}
                   className="absolute m-0 border-0 p-0"
                   style={{
                     left: r.rect[0],
@@ -280,6 +379,8 @@ export function Stage({ tab, setTab }: { tab: TabId; setTab: (t: TabId) => void 
                   ))}
                 </div>
               ))}
+
+              <Character c={char} />
             </div>
           </div>
         </div>

@@ -76,6 +76,33 @@
   transform: translateY(-122px) rotate(3deg);
 }
 
+/* Character motion. Limbs swing around the hip/shoulder pivot. */
+@keyframes swingA {
+  0%, 100% { transform: rotateX(26deg); }
+  50% { transform: rotateX(-26deg); }
+}
+@keyframes swingB {
+  0%, 100% { transform: rotateX(-26deg); }
+  50% { transform: rotateX(26deg); }
+}
+@keyframes wave {
+  0% { transform: rotateX(0deg); }
+  22% { transform: rotateX(155deg); }
+  36% { transform: rotateX(155deg) rotateY(16deg); }
+  50% { transform: rotateX(155deg) rotateY(-16deg); }
+  64% { transform: rotateX(155deg) rotateY(16deg); }
+  78% { transform: rotateX(155deg); }
+  100% { transform: rotateX(0deg); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateZ(0px); }
+  50% { transform: translateZ(2px); }
+}
+.anim-swing-a { animation: swingA 0.55s ease-in-out infinite; }
+.anim-swing-b { animation: swingB 0.55s ease-in-out infinite; }
+.anim-wave { animation: wave 1.7s ease-in-out 1; }
+.anim-bob { animation: bob 2.4s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
