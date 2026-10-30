@@ -307,7 +307,8 @@ function Bubble({ char, speech, tab }: { char: CharState; speech: Speech; tab: T
   const px = char.x - 320;
   const py = char.y - 320;
   const x = 0.7071 * (px - py);
-  const y = 0.35355 * (px + py) - 100;
+  // Mouth: 97px up the body (x0.866 on screen) and 14px out front (+7 on screen).
+  const y = 0.35355 * (px + py) - 77;
   const flip = x > 100;
   const side: CSSProperties = flip
     ? { right: 14, transformOrigin: "bottom right" }
@@ -317,7 +318,7 @@ function Bubble({ char, speech, tab }: { char: CharState; speech: Speech; tab: T
     <div
       aria-hidden="true"
       className="absolute z-[3] size-0 origin-top-left max-[1100px]:scale-120 max-[760px]:scale-150 max-[480px]:scale-190"
-      style={{ left: Math.round(x + (flip ? -10 : 10)), top: Math.round(y) }}
+      style={{ left: Math.round(x + (flip ? -15 : 9)), top: Math.round(y) }}
     >
       <div key={speech} className="absolute bottom-0 size-0">
         <span className={`${dot} anim-pop bottom-0 size-[7px] ${speech === "text" ? "max-[760px]:hidden" : ""}`} style={flip ? { right: 0 } : { left: 0 }} />
