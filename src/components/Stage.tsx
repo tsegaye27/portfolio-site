@@ -290,7 +290,79 @@ function Character({ c }: { c: CharState }) {
   );
 }
 
-export function Stage({ tab, go, char }: { tab: TabId; go: (t: TabId) => void; char: CharState }) {
+/* ── Speech bubble ───────────────────────────────────────────────────── */
+
+export type Speech = "none" | "dots" | "text";
+
+// Projects the character's floor point to the iso layer, lifted to mouth height.
+// Bubbles right of centre open leftwards so they stay inside the stage.
+// Below 760px a 250px cloud can't fit beside the mouth, so only the "…" stays
+// anchored there and the line shows as a caption (see Caption).
+function Bubble({ char, speech, tab }: { char: CharState; speech: Speech; tab: TabId }) {
+  if (speech === "none") return null;
+  const t = tabs.find((x) => x.id === tab)!;
+  const px = char.x - 320;
+  const py = char.y - 320;
+  const x = 0.7071 * (px - py);
+  const y = 0.35355 * (px + py) - 100;
+  const flip = x > 100;
+  const side: CSSProperties = flip
+    ? { right: 14, transformOrigin: "bottom right" }
+    : { left: 14, transformOrigin: "bottom left" };
+  const dot = "absolute rounded-full border-[1.5px] border-ink bg-card";
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute z-[3] size-0 origin-top-left max-[1100px]:scale-120 max-[760px]:scale-150 max-[480px]:scale-190"
+      style={{ left: Math.round(x + (flip ? -10 : 10)), top: Math.round(y) }}
+    >
+      <div key={speech} className="absolute bottom-0 size-0">
+        <span className={`${dot} anim-pop bottom-0 size-[7px] ${speech === "text" ? "max-[760px]:hidden" : ""}`} style={flip ? { right: 0 } : { left: 0 }} />
+        {speech === "dots" ? (
+          <div className="anim-pop absolute bottom-3 flex gap-[5px] rounded-full border-[1.5px] border-ink bg-card px-4 py-3" style={side}>
+            {[0, 0.15, 0.3].map((delay) => (
+              <span key={delay} className="anim-blink size-[7px] rounded-full bg-ink" style={{ animationDelay: `${delay}s` }} />
+            ))}
+          </div>
+        ) : (
+          <div className="max-[760px]:hidden">
+            <span className={`${dot} bottom-[9px] size-3`} style={flip ? { right: 6 } : { left: 6 }} />
+            <div
+              className="anim-pop-cloud absolute bottom-[22px] flex w-[250px] flex-col gap-1 rounded-[22px] border-[1.5px] border-ink bg-card px-4 pt-3 pb-3.5 shadow-[0_10px_20px_-14px_rgba(26,26,23,0.5)]"
+              style={side}
+            >
+              <span className="font-mono text-[10px] tracking-[0.1em] text-muted-ink uppercase">
+                {t.no} · {t.room}
+              </span>
+              <span className="text-lg leading-[1.3]">{t.line}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Caption({ speech, tab }: { speech: Speech; tab: TabId }) {
+  if (speech !== "text") return null;
+  const t = tabs.find((x) => x.id === tab)!;
+  return (
+    <div
+      aria-hidden="true"
+      className="anim-pop-cloud absolute inset-x-3 top-3 z-[3] hidden origin-top flex-col gap-0.5 rounded-2xl border-[1.5px] border-ink bg-card px-3.5 py-2.5 max-[760px]:flex"
+    >
+      <span className="font-mono text-[10px] tracking-[0.1em] text-muted-ink uppercase">
+        {t.no} · {t.room}
+      </span>
+      <span className="text-[15px] leading-[1.3]">{t.line}</span>
+    </div>
+  );
+}
+
+export function Stage({
+  tab, go, char, speech,
+}: { tab: TabId; go: (t: TabId) => void; char: CharState; speech: Speech }) {
+  const room = tabs.find((t) => t.id === tab)!;
   return (
     <section aria-label="Interactive studio" className="shell pb-2">
       <div className="relative h-[640px] overflow-hidden rounded-2xl border-[1.5px] border-ink bg-stage max-[1100px]:h-[540px] max-[760px]:h-[420px] max-[480px]:h-[320px]">
@@ -299,7 +371,14 @@ export function Stage({ tab, go, char }: { tab: TabId; go: (t: TabId) => void; c
           <span className="hidden max-[480px]:inline">Tap a room · drag furniture</span>
         </span>
 
+        <Caption speech={speech} tab={tab} />
+
+        <span className="sr-only" aria-live="polite">
+          Room {room.no}, {room.room}: {room.line}
+        </span>
+
         <div className="iso absolute top-[57%] left-1/2 size-0 max-[1100px]:scale-80 max-[760px]:scale-60 max-[480px]:scale-[0.44]">
+          <Bubble char={char} speech={speech} tab={tab} />
           <div
             style={{ ...p3d, left: -320, top: -320, width: 640, height: 640, transform: "rotateX(60deg) rotateZ(45deg)" }}
           >
