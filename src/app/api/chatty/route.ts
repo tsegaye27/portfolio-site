@@ -37,7 +37,7 @@ function siteDocs() {
 async function gemini<T>(pathAndMethod: string, body: unknown): Promise<T> {
   const res = await fetch(`${API}/${pathAndMethod}`, {
     method: "POST",
-    headers: { "content-type": "application/json", "x-goog-api-key": process.env.GOOGLE_API_KEY! },
+    headers: { "content-type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY! },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(15_000),
   });
@@ -127,7 +127,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "Ask a question." }, { status: 400 });
   }
 
-  if (!process.env.GOOGLE_API_KEY) return Response.json({ text: reply(last.text), fallback: true });
+  if (!process.env.GEMINI_API_KEY) return Response.json({ text: reply(last.text), fallback: true });
   try {
     return Response.json({ text: await answer(msgs) });
   } catch (e) {

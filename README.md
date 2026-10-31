@@ -14,7 +14,7 @@ The site is a filing cabinet: folder tabs for Experience, Projects, About and Co
 
 ```sh
 npm install
-cp .env.example .env   # add GOOGLE_API_KEY from Google AI Studio
+cp .env.example .env   # add GEMINI_API_KEY from Google AI Studio
 npm run dev
 ```
 
