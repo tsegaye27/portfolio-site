@@ -4,16 +4,16 @@ Email ttalegn29@gmail.com. Based in Addis Ababa, Ethiopia (GMT+3). Works with re
 
 ## Summary
 
-Backend software engineer working in Golang on fintech systems. Builds production services and APIs with Golang, Spring Boot, Kafka, NATS and Twirp RPC, backed by PostgreSQL and MySQL, and ships them with Docker. Before backend work full time, he built full-stack products with React and Node.js/NestJS, and he has shipped payment gateway integrations with local banks and wallets. He likes reliable, scalable systems and turning business requirements into practical technical solutions.
+Full-stack developer with over two years of experience building web products with React, Next.js, Node.js and NestJS. Since 2025 his focus has been the backend: Go services for payment platforms (at AddisPay and Pitron Tech Solutions), including gateway integrations with Ethiopian banks and wallets and event-driven systems on Kafka, NATS and gRPC. Comfortable owning a feature from the database schema to the interface.
 
-## Work experience: Backend Developer (Golang), Pitron Tech Solutions, June 2026 to present
+## Work experience: Backend Developer (Go), Pitron Tech Solutions, June 2026 to present
 
 - Builds and maintains backend services for several fintech solutions, primarily in Golang, with Spring Boot services where the stack calls for it.
 - Connects services with Twirp RPC for synchronous calls and with Kafka and NATS for asynchronous, event-driven messaging.
 - Designs and queries data in PostgreSQL and MySQL.
 - Packages and runs services with Docker.
 
-## Work experience: Backend Developer, AddisPay, July 2025 to June 2026
+## Work experience: Backend Developer (Go), AddisPay, July 2025 to June 2026
 
 Backend developer on a payment gateway platform, building scalable Golang services in a microservices architecture.
 
@@ -31,7 +31,7 @@ Backend developer on a payment gateway platform, building scalable Golang servic
 ## Freelance and contract work, 2024 to 2025
 
 - BambooSIM (Upwork), SIM card e-commerce site: full-stack build with a React frontend and NestJS backend, as a multi-service Docker setup using Redis, Adminer, Prisma and PostgreSQL. Handled SEO to improve discoverability.
-- Discord onboarding bot (Upwork): TypeScript bot for intern onboarding: project intros, daily task distribution, submission tracking, feedback and end-of-internship analysis. Built a RAG knowledge system with Notion as the source: ingestion, chunking and vectorization with text-embedding-003, stored in ChromaDB. Tracked interns and project state in SQLite; deployed on DigitalOcean with PM2 for multiple instances.
+- Discord onboarding bot (Upwork): TypeScript bot for intern onboarding: project intros, daily task distribution, submission tracking, feedback and end-of-internship analysis. Built a RAG knowledge system with Notion as the source: ingestion, chunking and embeddings stored in ChromaDB. Tracked interns and project state in SQLite; deployed on DigitalOcean with PM2 for multiple instances.
 - Full-stack React Flow application (Upwork): React Flow frontend with a Node.js/Express backend, focused on clean architecture and maintainable code.
 - Logistics and shipment tracking system (client): shipment status management and tracking with a Next.js frontend, NestJS backend and MongoDB.
 - Lifeline Health Initiatives (local client): responsive static site for a medical organization in HTML, CSS and JavaScript.

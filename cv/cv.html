@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tsegaye Talegngeta — CV</title>
+<!-- Edit this file, then open it in Chrome and Print > Save as PDF
+     (A4, margins: None, headers and footers off), or ask Claude to regenerate it. -->
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font: 9pt/1.36 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #1a1a17;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page { width: 210mm; padding: 10mm 14mm 6mm; }
+  a { color: inherit; text-decoration: none; }
+
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 8mm; padding-bottom: 3.2mm; border-bottom: 1.6pt solid #1a1a17; }
+  h1 { margin: 0; font: 700 25pt/1 Georgia, "Times New Roman", serif; letter-spacing: -0.4pt; }
+  .role { margin-top: 1.6mm; font-size: 10.2pt; color: #b8301c; font-weight: 500; }
+  .contact { text-align: right; font-size: 8.5pt; line-height: 1.55; color: #3a3220; }
+
+  section { margin-top: 3.1mm; }
+  h2 {
+    margin: 0 0 1.8mm; padding-bottom: 0.8mm;
+    font-size: 8pt; font-weight: 700; letter-spacing: 1.4pt; text-transform: uppercase;
+    border-bottom: 0.5pt solid #b9b2a0;
+  }
+  p { margin: 0; }
+  .summary { font-size: 9.4pt; line-height: 1.45; }
+
+  .job { margin-top: 2.1mm; break-inside: avoid; }
+  .job:first-of-type { margin-top: 0; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .title { font-weight: 700; font-size: 10pt; }
+  .org { font-weight: 400; }
+  .when { flex: none; font-size: 8.5pt; color: #4a3f27; font-variant-numeric: tabular-nums; }
+  .stack { font-size: 8.3pt; color: #4a3f27; margin-top: 0.3mm; }
+  ul { margin: 0.6mm 0 0; padding-left: 4mm; }
+  li { margin: 0.3mm 0; padding-left: 0.6mm; }
+  li::marker { color: #b8301c; }
+  b { font-weight: 600; }
+  ul.flat { margin: 0; }
+
+  .skills { display: grid; grid-template-columns: 30mm 1fr; gap: 0.9mm 3mm; }
+  .skills dt { font-weight: 600; }
+  .skills dd { margin: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <h1>Tsegaye Talegngeta</h1>
+      <div class="role">Full-stack Developer · React, Next.js, Node.js, Go</div>
+    </div>
+    <div class="contact">
+      Addis Ababa, Ethiopia (GMT+3)<br>
+      <a href="mailto:ttalegn29@gmail.com">ttalegn29@gmail.com</a> · +251 991 859 000<br>
+      <a href="https://tsegaye-talegngeta.vercel.app">tsegaye-talegngeta.vercel.app</a><br>
+      <a href="https://github.com/tsegaye27">github.com/tsegaye27</a> · <a href="https://linkedin.com/in/tsegaye-talegngeta27">linkedin.com/in/tsegaye-talegngeta27</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">Full-stack developer with over two years of experience building web products with React, Next.js, Node.js and NestJS. Since 2025 my focus has been the backend: Go services for payment platforms, including gateway integrations with Ethiopian banks and wallets and event-driven systems on Kafka, NATS and gRPC. I am comfortable owning a feature from the database schema to the interface.</p>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+
+    <div class="job">
+      <div class="row"><span class="title">Backend Developer (Go) <span class="org">· Pitron Tech Solutions</span></span><span class="when">Jun 2026 – Present</span></div>
+      <div class="stack">Go · Spring Boot · Kafka · NATS · Twirp RPC · PostgreSQL · MySQL · Docker</div>
+      <ul>
+        <li>Build and maintain Go services across several fintech products, adding Spring Boot services where the existing stack calls for it.</li>
+        <li>Connect services with Twirp RPC for synchronous calls and Kafka and NATS for event-driven messaging; design PostgreSQL and MySQL schemas and run everything in Docker.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="row"><span class="title">Backend Developer (Go) <span class="org">· AddisPay</span></span><span class="when">Jul 2025 – Jun 2026</span></div>
+      <div class="stack">Go · gRPC · RabbitMQ · Apache Pulsar · PostgreSQL · MySQL · MongoDB</div>
+      <ul>
+        <li>Integrated the payment gateway with <b>seven Ethiopian banks and wallets</b>: CBE, Awash Bank, Abyssinia Bank, Telebirr, <span style="white-space:nowrap">M-Pesa</span>, Kacha and Yaya.</li>
+        <li>Built <b>event payment</b> and <b>school payment</b> products on top of the gateway.</li>
+        <li>Developed Go microservices over gRPC with asynchronous messaging on RabbitMQ and Apache Pulsar, designing APIs and business logic on PostgreSQL, MySQL and MongoDB.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="row"><span class="title">Full-stack Developer, Freelance <span class="org">· Upwork and direct clients</span></span><span class="when">2024 – 2025</span></div>
+      <div class="stack">TypeScript · React · Next.js · NestJS · Express · Prisma · PostgreSQL · MongoDB · Docker</div>
+      <ul>
+        <li><b>BambooSIM</b> (bamboosim.com): SIM-card e-commerce site with a React storefront and a NestJS API on Prisma, PostgreSQL and Redis, shipped as a multi-service Docker setup. Owned the technical SEO.</li>
+        <li><b>Intern onboarding bot</b>: TypeScript Discord bot that runs onboarding end to end (project intros, daily tasks, submission tracking, feedback and end-of-internship reports) and answers questions with RAG over a Notion knowledge base stored in ChromaDB. SQLite for state; multiple instances under PM2 on DigitalOcean.</li>
+        <li><b>Shipment tracking system</b>: Next.js frontend, NestJS backend and MongoDB for managing and tracking shipment status.</li>
+        <li><b>React Flow editor</b>: node-based visual editor built with React Flow on a Node.js and Express backend.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="row"><span class="title">Frontend Developer Intern <span class="org">· Ewenet Communication PLC</span></span><span class="when">May 2024 – Oct 2024</span></div>
+      <div class="stack">Nuxt.js · Pinia · Tailwind CSS · NestJS</div>
+      <ul>
+        <li>Built the Nuxt.js frontend of <b>Reunite Us</b>, a missing-persons platform, using Pinia and Tailwind CSS, and integrated its NestJS APIs with the backend team.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <ul class="flat">
+      <li><b>Dot-Code</b> (2025, award-winning team project): MERN collaboration platform with real-time code editing, team workspaces and AI-assisted suggestions and debugging. I built version history inside the editor.</li>
+      <li><b>Liqu</b> (2025, personal): TypeScript Discord bot that answers questions with retrieval-augmented generation on the Gemini API.</li>
+      <li><b>Ceramics Store</b> (2024–2025, personal): Next.js and MongoDB app for a ceramics shop with inventory, product management and seller reports.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>Languages</dt><dd>TypeScript, JavaScript, Go, Java</dd>
+      <dt>Frontend</dt><dd>React, Next.js, Nuxt.js, Redux Toolkit, Pinia, Tailwind CSS</dd>
+      <dt>Backend</dt><dd>Node.js, Express, NestJS, Go, Spring Boot, REST, gRPC, Twirp</dd>
+      <dt>Messaging</dt><dd>Kafka, NATS, RabbitMQ, Apache Pulsar</dd>
+      <dt>Data</dt><dd>PostgreSQL, MySQL, MongoDB, Redis, SQLite · Prisma, Mongoose · ChromaDB</dd>
+      <dt>Infrastructure</dt><dd>Docker, Git, PM2, DigitalOcean, Vercel</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="row"><span><span class="title">BSc in Software Engineering</span> · Bahir Dar University, Ethiopia · CGPA 3.84 / 4.00 · Best Project Award</span><span class="when">2025</span></div>
+  </section>
+</div>
+</body>
+</html>
