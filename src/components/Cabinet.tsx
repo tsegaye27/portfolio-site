@@ -163,6 +163,8 @@ function ProjectCard({ project: p, no }: { project: Project; no?: number }) {
       )}
       <Tag
         href={p.href}
+        target={p.href ? "_blank" : undefined}
+        rel={p.href ? "noopener noreferrer" : undefined}
         className={`relative z-[1] flex flex-col gap-3.5 border border-ink bg-card p-[22px] no-underline ${
           no ? "min-h-[250px]" : "min-h-[220px]"
         }`}
@@ -178,7 +180,10 @@ function ProjectCard({ project: p, no }: { project: Project; no?: number }) {
             {p.href && " ↗"}
           </span>
         )}
-        <h3 className="m-0 text-[32px] leading-[1.05] font-bold tracking-[-0.01em]">{p.title}</h3>
+        <h3 className="m-0 text-[32px] leading-[1.05] font-bold tracking-[-0.01em]">
+          {p.title}
+          {p.href && <span className="sr-only"> (opens in a new tab)</span>}
+        </h3>
         <p className="m-0 grow text-[17px] leading-[1.45]">{p.blurb}</p>
         <span className="font-mono text-[11px] text-muted-ink uppercase">{p.stack}</span>
         {no && p.href && (
