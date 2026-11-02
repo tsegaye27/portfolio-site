@@ -89,7 +89,7 @@ async function answer(msgs: Msg[]) {
   const body = {
     systemInstruction: { parts: [{ text: `${SYSTEM}\n\nCONTEXT:\n${context}` }] },
     contents: msgs.map((m) => ({ role: m.from === "me" ? "user" : "model", parts: [{ text: m.text }] })),
-    generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
+    generationConfig: { temperature: 0.3, maxOutputTokens: 300 },
   };
   let err: unknown;
   for (const model of CHAT_MODELS) {
@@ -109,7 +109,8 @@ async function answer(msgs: Msg[]) {
 }
 
 export async function POST(req: Request) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "local";
+  // Vercel sets x-real-ip itself; x-forwarded-for can carry client-supplied hops.
+  const ip = req.headers.get("x-real-ip") ?? req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "local";
   if (limited(ip)) {
     return Response.json({ text: "That's a lot of questions at once. Give it a minute, or email ttalegn29@gmail.com." }, { status: 429 });
   }
