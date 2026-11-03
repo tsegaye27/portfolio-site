@@ -5,10 +5,10 @@ export const profile = {
   location: "Addis Ababa, Ethiopia",
   email: "ttalegn29@gmail.com",
   cv: "/Tsegaye_Talegngeta_CV.pdf",
-  siteUrl: "https://tsegaye-talegngeta.vercel.app",
+  siteUrl: "https://tsegaye.dev",
   intro:
     "Full-stack developer. Go services that move money, and the React and Next.js apps that sit on top of them.",
-  meta: "Addis Ababa, Ethiopia · Available for new projects",
+  meta: "Addis Ababa, Ethiopia · Open to selected freelance work",
   stamp: { top: "Currently filed at", name: "Pitron Tech", since: "Since Jun 2026" },
 } as const;
 
@@ -54,14 +54,14 @@ export type TabId = (typeof tabs)[number]["id"];
 export const experience = [
   {
     dates: "2026.06 — now",
-    title: "Backend Developer (Golang), Pitron Tech Solutions",
+    title: "Backend Developer (Go), Pitron Tech Solutions",
     summary:
       "Backend services across several fintech products — Go, with Spring Boot where it fits, on Kafka and NATS, Twirp RPC, Postgres and MySQL.",
     stack: "Go · Kafka · NATS · Twirp",
   },
   {
     dates: "2025.07 — 2026.06",
-    title: "Backend Developer, AddisPay",
+    title: "Backend Developer (Go), AddisPay",
     summary:
       "Payment gateway microservices in Go with gRPC, RabbitMQ and Pulsar. Integrated CBE, Awash, Abyssinia, Telebirr, M-Pesa, Kacha and Yaya; built event and school payments on top.",
     stack: "Go · gRPC · Pulsar · PG",

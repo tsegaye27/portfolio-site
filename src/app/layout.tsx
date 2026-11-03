@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   description,
   keywords: [
     "Tsegaye Talegngeta",
+    "full-stack developer",
     "backend engineer",
     "Golang developer",
     "payment gateway",

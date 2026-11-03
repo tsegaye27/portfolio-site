@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tsegaye-talegngeta.vercel.app/sitemap.xml
+Sitemap: https://tsegaye.dev/sitemap.xml

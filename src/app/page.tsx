@@ -63,7 +63,6 @@ export default function Home() {
 
       <footer className="shell flex flex-wrap justify-between gap-3 pb-10 font-mono text-xs tracking-[0.06em] uppercase">
         <span>© 2026 {profile.name}</span>
-        <span>Made in Addis Ababa</span>
       </footer>
 
       <Chatty />
