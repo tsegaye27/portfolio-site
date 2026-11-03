@@ -8,7 +8,7 @@ export const profile = {
   siteUrl: "https://tsegaye.dev",
   intro:
     "Full-stack developer. Go services that move money, and the React and Next.js apps that sit on top of them.",
-  meta: "Addis Ababa, Ethiopia · Open to selected freelance work",
+  meta: "Addis Ababa, Ethiopia · Available for new projects",
   stamp: { top: "Currently filed at", name: "Pitron Tech", since: "Since Jun 2026" },
 } as const;
 
