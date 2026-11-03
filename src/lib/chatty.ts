@@ -1,6 +1,7 @@
 export type Msg = { from: "me" | "bot"; text: string };
 
 export const MAX_LEN = 500;
+export const HISTORY = 6; // messages sent to the model
 
 export const greeting: Msg = {
   from: "bot",

@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 
-import { chips, greeting, MAX_LEN, reply, type Msg } from "@/lib/chatty";
+import { chips, greeting, HISTORY, MAX_LEN, reply, type Msg } from "@/lib/chatty";
 
 const X = (
   <path d="M6 6l12 12M18 6L6 18" />
@@ -26,7 +26,7 @@ export function Chatty() {
       const res = await fetch("/api/chatty", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: next }),
+        body: JSON.stringify({ messages: next.slice(-HISTORY) }),
       });
       answer = (await res.json()).text || reply(text);
     } catch {

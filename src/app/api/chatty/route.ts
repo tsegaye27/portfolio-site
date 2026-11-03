@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-import { chunk, MAX_LEN, reply, topK, type Msg } from "@/lib/chatty";
+import { chunk, HISTORY, MAX_LEN, reply, topK, type Msg } from "@/lib/chatty";
 import { about, builds, contact, experience, profile, sideProjects } from "@/lib/content";
 
 const API = "https://generativelanguage.googleapis.com/v1beta/models";
@@ -9,7 +9,6 @@ const API = "https://generativelanguage.googleapis.com/v1beta/models";
 const CHAT_MODELS = ["gemini-flash-lite-latest", "gemini-2.5-flash-lite"];
 const EMBED_MODEL = "gemini-embedding-001";
 const TOP_K = 6;
-const HISTORY = 6;
 const LIMIT = 12; // requests per IP per window
 const WINDOW_MS = 60_000;
 
@@ -115,7 +114,10 @@ export async function POST(req: Request) {
     return Response.json({ text: "That's a lot of questions at once. Give it a minute, or email ttalegn29@gmail.com." }, { status: 429 });
   }
 
-  const body = await req.json().catch(() => null);
+  // 6 messages of 500 chars fit well under 16 KB; anything bigger isn't from the widget.
+  const payload = await req.text();
+  if (payload.length > 16_000) return Response.json({ error: "Message too long." }, { status: 413 });
+  const body = (() => { try { return JSON.parse(payload); } catch { return null; } })();
   const raw: unknown[] = Array.isArray(body?.messages) ? body.messages : [];
   const msgs: Msg[] = raw
     .filter((m): m is Msg => !!m && typeof (m as Msg).text === "string" && ((m as Msg).from === "me" || (m as Msg).from === "bot"))
